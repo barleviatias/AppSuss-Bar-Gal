@@ -11,8 +11,9 @@ export function App() {
 				<AppHeader />
 			</header>
 			<main>
-				<h1>My App</h1>
-				<Home />
+				<Switch>
+					<Route exact component={Home} path="/" />
+				</Switch>
 			</main>
 			<footer>coffeerights &copy;</footer>
 		</Router>

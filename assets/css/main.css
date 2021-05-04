@@ -1,9 +1,22 @@
 @import url('./normalize.css');
 @import url('./helpers.css');
-body {
-    background-color: lightblue;
+@import url('./home.css');
+@font-face {
+    font-family: open-sans;
+    src: url(../font/OpenSans-Regular.ttf);
 }
-
+@font-face {
+    font-family: open-sans-bold;
+    src: url(../font/OpenSans-Bold.ttf);
+}
+body {
+    background-color: whitesmoke;
+    font-family: open-sans;
+}
+main{
+    display: flex;
+    justify-content: center;
+}
 .user-preview {
     background-color: darkcyan;
     padding: 5px;
