@@ -2,7 +2,7 @@
 import {NotesList} from './cmps/NoteList.jsx'
 import {keepService} from './services/keep.service.js'
 
-export class Keep extends React.Component {
+export class KeepApp extends React.Component {
     state = {
         notes: null,
 

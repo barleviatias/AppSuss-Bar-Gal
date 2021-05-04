@@ -13,26 +13,5 @@
     justify-content: center;
 }
 .container{
-    width: 1200px;
-}
-.content h1{
-    font-size: 63px;
-}
-.content p{
-    font-size: 15px;
-}
-.content button{
-    border-radius: 2rem;
-    border :0;
-    background-color: #1e3595;
-    padding: 15px 30px;
-    color: whitesmoke;
-    transition: 0.9ms;
-}
-.content button:hover{
-    /* border-radius: 2rem;
-    border :0; */
-    background-color: #305fc2;
-    padding: 15px 32px;
-    color: whitesmoke;
+    width: 1500px;
 }

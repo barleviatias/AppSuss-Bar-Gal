@@ -28,6 +28,8 @@ body {
 main{
     display: flex;
     justify-content: center;
+    /* margin-left: 20px;
+    margin-right: 20px; */
 }
 
 .user-preview {
@@ -45,4 +47,8 @@ a{
     color: inherit;
     font-weight: bold;
     text-decoration: unset;
+}
+
+footer{
+    text-align: center;
 }
