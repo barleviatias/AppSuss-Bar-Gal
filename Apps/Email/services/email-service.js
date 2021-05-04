@@ -1,6 +1,6 @@
 import { utilService } from '../../../services/util-service.js';
 export const emailService = {
-	query,
+	query,toggleRead
 };
 var gEmails = [
 	{
@@ -29,4 +29,12 @@ var gEmails = [
 console.log(gEmails);
 function query() {
 	return Promise.resolve(gEmails);
+}
+function getEmailById(id){
+	var emailIdx= gEmails.findIndex((email)=>email.id===id)
+	return emailIdx
+}
+function toggleRead(idx){
+	emailIdx=getEmailById(idx)
+	gEmails[idx].isRead=!gEmails[idx].isRead
 }

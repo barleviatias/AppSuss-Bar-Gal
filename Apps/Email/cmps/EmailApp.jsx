@@ -16,8 +16,10 @@ export class EmailApp extends React.Component {
 			console.log(this.state.emails);
 		});
 	};
-    toggleEmail = (isRead) => {
-        this.setState({isRead: !isRead })
+    toggleEmail () {
+        console.log(toggleEmail);
+    //    emailService.toggleRead(idx)
+       this.loadEmail()
     }
 	render() {
 		const { emails } = this.state;
@@ -29,7 +31,7 @@ export class EmailApp extends React.Component {
 				<div className="email-app flex">
 					<div className="inbox">
 						<h2>inbox!</h2>
-						<EmailList emails={emails} />
+						<EmailList toggleEmail={this.toggleEmail} emails={emails}  />
 					</div>
 					<div className="email-panel">
 						<h4>side bar</h4>
