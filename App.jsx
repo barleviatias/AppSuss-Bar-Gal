@@ -16,7 +16,7 @@ export function App() {
             <Switch>
             <Route component={AboutUs} path='/about' />
             <Route component={KeepApp} path='/keep' />
-            <Route component={Home} path='/' />
+            <Route component={Home} path='/'/>
             </Switch>
 			</main>
 			<footer>coffeerights &copy;</footer>
