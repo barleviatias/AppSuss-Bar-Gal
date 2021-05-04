@@ -1,27 +1,30 @@
 
-import {NotesList} from './NoteList.jsx'
-import {keepService} from '../services/keep.service.js'
+import {NoteList} from './NoteList.jsx'
+import {noteService} from '../services/keep.service.js'
 
 export class KeepApp extends React.Component {
     state = {
         notes: null,
-
     }
 
     componentDidMount() {
-        this.loadKeeps()
+        this.loadNotes()
     }
 
-    loadKeeps = () => {
-        keepService.query()
-            .then((notes => {
+    loadNotes = () => {
+        noteService.query()
+            .then(notes => {
                 this.setState({ notes })
-            }))
-    }
+            })
+            
+        }
+        
+        
 
-
-
-    render (){
+        render (){
+            const {notes} = this.state
+            console.log(notes);
+            if (!notes) return <div>Loading...</div>
         return(<section className="keeper-container">
 
             <header className="keeper-header">
@@ -33,7 +36,7 @@ export class KeepApp extends React.Component {
 
             <main className="keeper-notes-container">
                 {/* TODO: add saved notes to show, show pinned notes first */}
-                <NotesList/>
+                <NoteList notes={notes}/>
             </main>
         </section>
         )
