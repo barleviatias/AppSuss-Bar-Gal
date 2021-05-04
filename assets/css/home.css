@@ -1,18 +1,17 @@
 .hero-section {
 	flex-direction: row-reverse;
-	height: 90vh;
+	height: 80vh;
 	justify-content: center;
 	align-items: center;
+	margin-block-start: 10px;
 }
 
 .hero {
-	width: 100%;
-	max-width:650px;
-	height: auto;
-
-	object-fit: contain;
+	max-width:40%;
 }
+
 .content {
+	max-width:50%;
 	height: 50vh;
 	padding-right: 100px;
 	padding-left: 100px;
