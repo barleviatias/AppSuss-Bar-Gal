@@ -1,6 +1,6 @@
 
-import {NotesList} from './cmps/NoteList.jsx'
-import {keepService} from './services/keep.service.js'
+import {NotesList} from './NoteList.jsx'
+import {keepService} from '../services/keep.service.js'
 
 export class KeepApp extends React.Component {
     state = {

@@ -3,6 +3,7 @@
 @import url('./home.css');
 @import url('./header.css');
 @import url('./about.css');
+@import url('./email-style/email.css');
 
 
 * {

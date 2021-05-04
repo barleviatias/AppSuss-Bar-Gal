@@ -1,0 +1,11 @@
+
+.email-app{
+    background-color: gray;
+    flex-direction: row-reverse;
+}
+.inbox{
+    width: 60vw;
+}
+.email-panel{
+    width: 40vw;
+}
