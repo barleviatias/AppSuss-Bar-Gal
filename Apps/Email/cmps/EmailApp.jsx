@@ -1,4 +1,4 @@
-import { emailService } from '../../../services/email-service.js';
+import { emailService } from '../../Email/services/email-service.js'
 import { EmailList } from '../cmps/EmailList.jsx';
 export class EmailApp extends React.Component {
 	state = {
@@ -16,8 +16,12 @@ export class EmailApp extends React.Component {
 			console.log(this.state.emails);
 		});
 	};
+    toggleEmail = (isRead) => {
+        this.setState({isRead: !isRead })
+    }
 	render() {
 		const { emails } = this.state;
+        if (!emails) return <div>Loading...</div>;
 		console.log(emails);
 		return (
 			<div className="email-container container">
@@ -25,7 +29,7 @@ export class EmailApp extends React.Component {
 				<div className="email-app flex">
 					<div className="inbox">
 						<h2>inbox!</h2>
-						{/* <EmailList emails={emails} /> */}
+						<EmailList emails={emails} />
 					</div>
 					<div className="email-panel">
 						<h4>side bar</h4>

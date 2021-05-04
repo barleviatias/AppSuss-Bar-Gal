@@ -1,11 +1,25 @@
 
 .email-app{
-    background-color: gray;
+    /* background-color: gray; */
     flex-direction: row-reverse;
+    padding: 50px;
 }
 .inbox{
     width: 60vw;
 }
 .email-panel{
     width: 40vw;
+}
+.email-card{
+    box-shadow: rgba(0, 0, 0, 0.438) 0px 0px 3px 0px;
+    /* border : 1px black solid; */
+    margin-bottom: 3px;
+    border-radius: 5px;
+}
+.card-content{
+    margin-left: 20px;
+
+}
+.bold{
+    font-weight: bold;
 }

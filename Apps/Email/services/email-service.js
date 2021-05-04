@@ -1,28 +1,28 @@
-import { utilService } from '../services/util-service.js';
+import { utilService } from '../../../services/util-service.js';
 export const emailService = {
 	query,
 };
 var gEmails = [
 	{
 		id: utilService.makeId(),
-		subject: 'Wassap?',
+		subject: 'new costumer?',
 		body: 'Pick up!',
-		isRead: false,
-		sentAt: 1551133930594,
+		isRead: true,
+		sentAt: 1575909015,
 	},
 	{
 		id: utilService.makeId(),
 		subject: 'Wassap?',
 		body: 'Pick up!',
 		isRead: false,
-		sentAt: 1551133930594,
+		sentAt: 1620141972558,
 	},
 	{
 		id: utilService.makeId(),
 		subject: 'Wassap?',
 		body: 'Pick up!',
 		isRead: false,
-		sentAt: 1551133930594,
+		sentAt: 1575909015,
 	},
 ];
 

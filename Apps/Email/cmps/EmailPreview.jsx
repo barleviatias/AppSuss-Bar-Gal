@@ -1,9 +1,18 @@
-export function EmailPreview(email) {
-	const { subject, body, isRead, sendAt } = email;
+export function EmailPreview({ email }) {
+	const { subject, body, isRead, sentAt } = email;
+
+	const dateObject = new Date(sentAt);
+    console.log(dateObject);
+	const humanDateFormat = dateObject.toLocaleString() // 12/9/2019, 10:30:15 AM CST
+
 	return (
-		<div className="email-card">
-			<h2>{subject}</h2>
-			<p>{body}</p>
+		<div onClick={() => {
+            ({ isRead:!isRead });
+        }} className="email-card">
+			<div className="card-content">
+				<p className={isRead ? 'bold' : ''}>{subject}</p>
+				<p>{humanDateFormat}</p>
+			</div>
 		</div>
 	);
 }
