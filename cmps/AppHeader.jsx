@@ -1,13 +1,16 @@
 const { NavLink, withRouter } = ReactRouterDOM
-export class AppHeader extends React.Component{
+export class AppHeader extends React.Component {
 
-    render(){
+    render() {
         return (
             <nav className="app-header ">
                 <ul className="clean-list">
                     <li><NavLink to="/book">Book</NavLink></li>
+                    <li><NavLink to="/book">Kepp</NavLink></li>
+                    <li><NavLink to="/book">Mail</NavLink></li>
                     <li><NavLink to="/about">About</NavLink></li>
                     <li><NavLink to="/">Home</NavLink></li>
+                    <button></button>
                 </ul>
             </nav>
         )

@@ -1,14 +1,31 @@
 @import url('./normalize.css');
 @import url('./helpers.css');
+@import url('./home.css');
 
 
 * {
     box-sizing: border-box;
 }
 
+/*  ---- FONTS ---- */
+@font-face {
+    font-family: open-sans;
+    src: url(../font/OpenSans-Regular.ttf);
+}
+@font-face {
+    font-family: open-sans-bold;
+    src: url(../font/OpenSans-Bold.ttf);
+}
 
+/* ---- MAIN ---- */
 body {
-    background-color: lightblue;
+    background-color: whitesmoke;
+    font-family: open-sans;
+}
+
+main{
+    display: flex;
+    justify-content: center;
 }
 
 .user-preview {
@@ -17,6 +34,7 @@ body {
     width: 200px;
     text-align: center;    
 }
+
 .user-preview button {
     margin: 5px;
 }
