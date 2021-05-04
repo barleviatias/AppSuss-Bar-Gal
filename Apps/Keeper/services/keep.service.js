@@ -1,5 +1,7 @@
 'use strict'
 
+import utilService from '../../../services/util-service.js'
+
 export const noteService = {
     query,
 }
@@ -42,4 +44,14 @@ const gNotes = [
 function query() {
     console.log('Lets start!');
     return Promise.resolve(gNotes);
+}
+
+function addNote(type, isPinned, ) {
+    const note = {
+        id: utilService.makeId(),
+        type: "NoteText",
+        isPinned,
+        info,
+    }
+
 }
