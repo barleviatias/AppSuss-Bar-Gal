@@ -40,3 +40,9 @@ main{
 .user-preview button {
     margin: 5px;
 }
+
+a{
+    color: inherit;
+    font-weight: bold;
+    text-decoration: unset;
+}
