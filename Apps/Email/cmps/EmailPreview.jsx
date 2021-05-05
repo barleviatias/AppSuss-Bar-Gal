@@ -9,7 +9,7 @@ export function EmailPreview({ email }) {
     
         return (
             <div onClick={() => {
-                this.props.toggleEmail(this.props.key)
+                this.toggleEmail(email.id)
             }} className="email-card">
 			<div className="card-content">
 				<p className={isRead ? 'bold' : ''}>{subject}</p>

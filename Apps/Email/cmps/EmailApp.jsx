@@ -16,7 +16,7 @@ export class EmailApp extends React.Component {
 			console.log(this.state.emails);
 		});
 	};
-    toggleEmail () {
+    toggleEmail =()=> {
         console.log(toggleEmail);
     //    emailService.toggleRead(idx)
        this.loadEmail()
