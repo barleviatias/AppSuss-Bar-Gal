@@ -122,13 +122,9 @@ export class KeepApp extends React.Component {
                         onClick={() => this.setInputType('noteAud')}>
                         Audio</button>
                 </div>
-
-
-                {/* TODO: let the user add new note, make links to notes cmps */}
             </form>
 
             <main className="keeper-notes-container">
-                {/* TODO: add saved notes to show, show pinned notes first */}
                 <NoteList notes={notes} handleChange={this.handleChange} onRemoveNote={this.onRemoveNote}
                  />
             </main>

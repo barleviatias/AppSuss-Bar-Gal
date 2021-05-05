@@ -11,6 +11,7 @@ function saveToStorage(key, val) {
 }
 
 function loadFromStorage(key) {
+    console.log('load from storage');
     let val = localStorage.getItem(key);
     return JSON.parse(val);
 }
