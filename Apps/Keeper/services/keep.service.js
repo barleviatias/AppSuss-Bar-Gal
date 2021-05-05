@@ -14,6 +14,7 @@ const gNotes = [
     {
         id: 'asfd4',
         type: "noteTxt",
+        isAddList: false,
         isPinned: true,
         info: {
             title: '',
@@ -28,10 +29,11 @@ const gNotes = [
         id: 'a4vc85',
         type: "noteImg",
         isPinned: false,
+        isAddList: false,
         info: {
             title: "Me playing Mi",
             txt: '',
-            url: "http://some-img/me",
+            url: "https://www.itsme.co.il/wp-content/uploads/2019/02/itsme_smartphone-1.png",
             todos: [],
             style: {
                 backgroundColor: "#00d"
@@ -40,6 +42,7 @@ const gNotes = [
     }, {
         id: 'df5sa',
         isPinned: false,
+        isAddList: true,
         type: "noteList",
         info: {
             title: "How was it:",
@@ -60,16 +63,17 @@ function query() {
     return Promise.resolve(gNotes);
 }
 
-function addNote(type = 'noteTxt', isPinned = false, title = '', txt = '', url = '', todo = '') {
-    if (isPinned === false &&
-        title === '' &&
-        txt === '' &&
-        url === '' &&
-        todo === '') return Promise.reject('no note');
+function addNote(type = 'noteTxt', isPinned = false,isAddList = false,  title = '', txt = '', url = '', todo = ['']) {
+    // if (isPinned === false &&
+    //     title === '' &&
+    //     txt === '' &&
+    //     url === '' &&
+    //     todo === ['']) return Promise.reject('no note');
     const note = {
         id: utilService.makeId(),
         type,
         isPinned,
+        isAddList,
         info: {
             title,
             txt,

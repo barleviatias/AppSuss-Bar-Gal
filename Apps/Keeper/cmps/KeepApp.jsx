@@ -6,13 +6,15 @@ export class KeepApp extends React.Component {
     state = {
         notes: null,
         visible: false,
+        isAddList: false,
         note: {
             type: null,
             isPinned: false,
+            isAddList: false,
             title: '',
             txt: '',
             url: '',
-            todos: ''
+            todos: null
         }
     }
 
@@ -31,8 +33,8 @@ export class KeepApp extends React.Component {
 
     onAddNote = (ev) => {
         ev.preventDefault();
-        const { type, isPinned, title, txt, url, todo } = this.state.note;
-        noteService.addNote(type, isPinned, title, txt, url, todo)
+        const { type, isPinned, title, isAddList, txt, url, todo } = this.state.note;
+        noteService.addNote(type, isPinned, isAddList, title, txt, url, todo)
             .then(noteAded => {
                 this.loadNotes;
                 this.setState({
@@ -40,17 +42,23 @@ export class KeepApp extends React.Component {
                     note: {
                         type: null,
                         isPinned: false,
+                        isAddList: false,
                         title: '',
                         txt: '',
                         url: '',
-                        todos: ''
+                        todos: null,
                     }
                 })
 
             })
     }
 
-
+    // onDeleteCar = () => {
+    //     carService.deleteCar(this.state.car.id)
+    //       .then(() => {
+    //         this.props.history.push('/car')
+    //       })
+    //   }
 
     setInputType(type) {
         this.setState({
@@ -92,7 +100,7 @@ export class KeepApp extends React.Component {
                 <input type="text" name="title" className="keeper-new-title"
                     onClick={() => this.setInputType('noteTxt')}
                     onChange={this.handleChange}
-                     placeholder="Write a new note" />
+                    placeholder="Write a new note" />
 
                 {visible && <React.Fragment>
                     <textarea className="keeper-new-txt"
