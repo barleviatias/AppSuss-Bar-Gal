@@ -5,12 +5,14 @@ import { storageService } from '../../../services/storage.service.js'
 
 export const noteService = {
     query,
-    addNote
+    addNote,
+    removeNote
 }
 
 const KEY = 'notes-keeper';
 
-const gNotes = [
+// const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromStorage(KEY) : 
+const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromStorage(KEY) : ([
     {
         id: 'asfd4',
         type: "noteTxt",
@@ -26,7 +28,7 @@ const gNotes = [
             }
         }
     }, {
-        id: 'a4vc85',
+        id: 'b4vc85',
         type: "noteImg",
         isPinned: false,
         isAddList: false,
@@ -57,18 +59,17 @@ const gNotes = [
             }
         }
     }
-];
+]);
 
 function query() {
     return Promise.resolve(gNotes);
 }
 
-function addNote(type = 'noteTxt', isPinned = false,isAddList = false,  title = '', txt = '', url = '', todo = ['']) {
-    // if (isPinned === false &&
-    //     title === '' &&
-    //     txt === '' &&
-    //     url === '' &&
-    //     todo === ['']) return Promise.reject('no note');
+function addNote(type = 'noteTxt', isPinned = false, isAddList = false, title = '', txt = '', url = '', todo = ['']) {
+    if (isPinned === false &&
+        title === '' &&
+        txt === '' &&
+        url === '' ) return Promise.reject('no note');
     const note = {
         id: utilService.makeId(),
         type,
@@ -83,6 +84,23 @@ function addNote(type = 'noteTxt', isPinned = false,isAddList = false,  title = 
     }
 
     gNotes.unshift(note);
-    storageService.saveToStorage(KEY, gNotes)
+    _saveNotesToStorage();
     return Promise.resolve(note)
+}
+
+
+function removeNote(noteId) {
+    // console.log(noteId);
+    var noteIdx = gNotes.findIndex(function (note) {
+        return noteId === note.id
+    })
+    gNotes.splice(noteIdx, 1)
+    _saveNotesToStorage();
+console.log('delete!');
+    return Promise.resolve()
+}
+
+
+function _saveNotesToStorage() {
+    storageService.saveToStorage(KEY, gNotes)
 }

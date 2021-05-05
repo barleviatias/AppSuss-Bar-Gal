@@ -6,11 +6,11 @@ import { NoteVid } from './NoteVideo.jsx'
 import { NoteAud } from './NoteAudio.jsx'
 
 
-export function NoteList({ notes }) {
+export function NoteList({ notes, onRemoveNote }) {
     return <section className="notes-container">
         <h1>Your Notes</h1>
         {notes.map(note => {
-             return <NoteCard note={note} key={note.id}/>
+             return <NoteCard note={note} key={note.id} onRemoveNote={onRemoveNote}/>
             // switch (note.type) {
             //     case 'noteTxt':
             //         return <NoteTxt note={note} key={note.id}/>

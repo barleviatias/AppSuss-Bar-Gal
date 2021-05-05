@@ -51,14 +51,18 @@ export class KeepApp extends React.Component {
                 })
 
             })
+            .catch(() => {
+                this.setState({visible: false})
+            })
     }
 
-    // onDeleteCar = () => {
-    //     carService.deleteCar(this.state.car.id)
-    //       .then(() => {
-    //         this.props.history.push('/car')
-    //       })
-    //   }
+    onRemoveNote = (noteId) => {
+        noteService.removeNote(noteId)
+          .then(() => {
+            this.loadNotes()
+          })
+      }
+
 
     setInputType(type) {
         this.setState({
@@ -66,11 +70,6 @@ export class KeepApp extends React.Component {
             note: { type, }
         })
     }
-
-
-
-
-
 
     handleChange = ({ target }) => {
         const field = target.name;
@@ -130,7 +129,8 @@ export class KeepApp extends React.Component {
 
             <main className="keeper-notes-container">
                 {/* TODO: add saved notes to show, show pinned notes first */}
-                <NoteList notes={notes} handleChange={this.handleChange} />
+                <NoteList notes={notes} handleChange={this.handleChange} onRemoveNote={this.onRemoveNote}
+                 />
             </main>
         </section>
         )
