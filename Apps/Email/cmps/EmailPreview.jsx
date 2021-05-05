@@ -1,7 +1,7 @@
-const { Link } = ReactRouterDOM;
+const { Link }= ReactRouterDOM
 export function EmailPreview(props) {
 	// export class EmailPreview extends React.Compononet{
-	console.log(props);
+	// console.log(props);
 	const email = props.email;
 	const { subject, body, isRead, sentAt } = email;
 
@@ -10,25 +10,26 @@ export function EmailPreview(props) {
 	const humanDateFormat = dateObject.toLocaleString(); // 12/9/2019, 10:30:15 AM CST
 
 	return (
-		<Link to={`/mail/${email.id}`}>
-			<div
-				onClick={() => {
-					props.toggleEmail(email.id);
-				}}
-				className="email-card"
-			>
-				<div className="card-content">
-					<p className={isRead ? '' : 'bold'}>{subject}</p>
-					<p>{humanDateFormat}</p>
-					<button
-						onClick={() => {
-							props.removeEmail(email.id);
-						}}
-					>
-						X
-					</button>
-				</div>
+		<div className="email-card">
+			<div className="card-content">
+				<p className={isRead ? '' : 'bold'}>{subject}</p>
+				<p>{humanDateFormat}</p>
+				<Link
+					onClick={() => {
+						props.toggleEmail(email.id);
+						console.log(email.id);
+					}}
+					to={`/mail/${email.id}`}>
+					<button>read</button>
+				</Link>
 			</div>
-		</Link>
+			<button
+				onClick={() => {
+					props.onRemoveEmail(email.id);
+				}}
+			>
+				X
+			</button>
+		</div>
 	);
 }

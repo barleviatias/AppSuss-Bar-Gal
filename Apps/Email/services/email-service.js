@@ -21,6 +21,7 @@ function getEmailById(id) {
 	var currMail = gEmails.find((mail) => {
         return mail.id === id
     })
+    console.log("email by id",currMail);
     return Promise.resolve(currMail)
 }
 function toggleRead(idx) {
@@ -31,7 +32,24 @@ function toggleRead(idx) {
 		})
 	);
 }
-function addEmail() {}
+function addEmail(info) {
+    const { subject, to, body } = info
+    var mail = {
+        // origin: {
+        //     to: { mail: to, name: utilService.makeLorem(2) },
+        //     from: { mail: 'user@gmail.com', name: 'user' }
+        // },
+        id: utilService.makeId(),
+        subject: subject,
+        body: body,
+        isRead: true,
+        sentAt: Date.now(),
+        isStarred: false,
+        isDraft: false
+    }
+    gEmails.unshift(mail);
+    _saveEmailsToStorage();
+}
 function removeEmail(emailId) {
 	var emailIdx = getEmailById(emailId);
 	gEmails.splice(emailIdx, 1);
