@@ -1,7 +1,7 @@
 'use strict'
 
-import utilService from '../../../services/util-service.js'
-import storageService from '../../../services/storage.service.js'
+import {utilService} from '../../../services/util-service.js'
+import {storageService} from '../../../services/storage.service.js'
 
 export const noteService = {
     query,

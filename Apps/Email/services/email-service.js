@@ -1,7 +1,12 @@
 import { utilService } from '../../../services/util-service.js';
+import { storageService } from '../../../services/storage.service.js';
 export const emailService = {
-	query,toggleRead
+	query,
+	toggleRead,
 };
+const KEY = 'emailsDB';
+var gEmails = storageService.loadFromStorage(KEY) || [];
+
 var gEmails = [
 	{
 		id: utilService.makeId(),
@@ -30,11 +35,31 @@ console.log(gEmails);
 function query() {
 	return Promise.resolve(gEmails);
 }
-function getEmailById(id){
-	var emailIdx= gEmails.findIndex((email)=>email.id===id)
-	return emailIdx
+function getEmailById(id) {
+	var emailIdx = gEmails.findIndex((email) => email.id === id);
+	return emailIdx;
 }
-function toggleRead(idx){
-	emailIdx=getEmailById(idx)
-	gEmails[idx].isRead=!gEmails[idx].isRead
+function toggleRead(idx) {
+	var emailIdx = getEmailById(idx);
+	gEmails[emailIdx].isRead = !gEmails[idx].isRead;
+}
+function addEmail() {}
+function removeEmail(emailId) {
+	var emailIdx = getEmailById(emailId);
+	gEmails.splice(emailIdx, 1);
+	_saveEmailsToStorage();
+	return Promise.resolve();
+}
+function createEmail(towards, subject, body) {
+	gEmails.push({
+		id: utilsService.makeId(),
+		isRead: false,
+		towards,
+		subject,
+		body,
+		sentAt: new Date(),
+	});
+}
+function _saveEmailsToStorage() {
+	storageService.saveToStorage(KEY, gEmails);
 }
