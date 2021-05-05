@@ -1,20 +1,25 @@
 
-import {NoteList} from './NoteList.jsx'
-import {noteService} from '../services/keep.service.js'
+import { NoteList } from './NoteList.jsx'
+import { NoteTxt } from './NoteTxt.jsx'
+import { noteService } from '../services/keep.service.js'
 
 export class KeepApp extends React.Component {
     state = {
         notes: null,
+        visible: false,
         note: {
-            type: "NoteText",
+            type: null,
             isPinned: false,
             title: null,
-            txt: null
+            txt: null,
+            url: null,
+            // todos: []
         }
     }
 
     componentDidMount() {
         this.loadNotes()
+        // console.log(this.state);
     }
 
     loadNotes = () => {
@@ -22,48 +27,92 @@ export class KeepApp extends React.Component {
             .then(notes => {
                 this.setState({ notes })
             })
-            
-        }
+    }
 
-        
-        onAddNote = (ev) => {
-            ev.preventDefault();
-        }
-        
-        handleChange = ({ target }) => {
-            const field = target.name;
-            const value = (target.type === 'number') ? +target.value : target.value;
-            this.setState(prevState => ({
-                review: {
-                    ...prevState.review,
-                    [field]: value
-                }
-            }))
-        }
-        
-        render (){
-            const {notes} = this.state
-            if (!notes) return <div>Loading...</div>
-        return(<section className="keeper-container">
+
+    onAddNote = (ev) => {
+        ev.preventDefault();
+        const { type, isPinned, title, txt, url } = this.state.note;
+        // console.log(type, isPinned, title, txt, url);
+        noteService.addNote(type, isPinned, title, txt, url)
+            // .then( noteAded=> {this.loadNotes}
+}
+
+
+    setInputType(type) {
+        this.setState({
+            visible: true,
+            note: { type, }
+        })
+    }
+
+
+
+
+
+
+    handleChange = ({ target }) => {
+        const field = target.name;
+        const value = (target.type === 'number') ? +target.value : target.value;
+        this.setState(prevState => ({
+            note: {
+                ...prevState.note,
+                [field]: value
+            }
+        }))
+    }
+
+    render() {
+        const { notes, visible } = this.state
+        const { type } = this.state.note
+
+        if (!notes) return <div>Loading...</div>
+
+        return (<section className="keeper-container">
 
             <header className="keeper-header">
-                {/* TODO: add searce note cmp */}
+                {/* TODO: add filter note cmp */}
             </header>
-            <form className="keeper-new-note" onSubmit={this.onAddNote}>
-                <input type="text" name="title" className="keeper-new-title" onClick={this.handleChange} placeholder="Write a note"/>
-                <textarea className="keeper-new-txt" name="txt" id="" cols="30" rows="1" onClick={this.handleChange}></textarea>
-                <div className="keeper-new-extra">
-                {/* <button>Image</button>
-                <button>List</button>
-                <button>Audio</button> */}
-                {/* <button>Add Note</button> */}
+
+            {/* ---- NEW NOTES INPUT ---- */}
+            <form className="keeper-new-note">
+                <input type="text" name="title" className="keeper-new-title"
+                    onClick={() => this.setInputType('noteTxt')} placeholder="Write a new note" />
+
+                {/* {type === 'noteImg'}
+{type === 'noteList'}
+{type === 'noteVid'}
+{type === 'noteAud'} */}
+
+
+                {visible && <React.Fragment>
+                    <textarea className="keeper-new-txt" name="txt" id="" cols="30" rows="3" onClick={this.handleChange}></textarea>
+                    <button className="keeper-submit-note" onClick={this.onAddNote}></button>
+                </React.Fragment>}
+
+
+                <div className="keeper-btn-inputs">
+                    <button className="keeper-img-btn"
+                        onClick={() => this.setInputType('noteImg')}>
+                        Image</button>
+                    <button className="keeper-list-btn"
+                        onClick={() => this.setInputType('noteList')}>
+                        List</button>
+                    <button className="keeper-vid-btn"
+                        onClick={() => this.setInputType('noteVid')}>
+                        Video</button>
+                    <button className="keeper-aud-btn"
+                        onClick={() => this.setInputType('noteAud')}>
+                        Audio</button>
                 </div>
-                {/* TODO: let the user add new note, make links to notes diffrent cmps */}
+
+
+                {/* TODO: let the user add new note, make links to notes cmps */}
             </form>
 
             <main className="keeper-notes-container">
                 {/* TODO: add saved notes to show, show pinned notes first */}
-                <NoteList notes={notes}/>
+                <NoteList notes={notes} handleChange={this.handleChange} />
             </main>
         </section>
         )

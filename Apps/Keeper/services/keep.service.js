@@ -1,57 +1,78 @@
 'use strict'
 
 import utilService from '../../../services/util-service.js'
+import storageService from '../../../services/storage.service.js'
 
 export const noteService = {
     query,
+    addNote
 }
+
+const KEY='notes-keeper';
 
 const gNotes = [
     {
-        id:'asfd4',
+        id: 'asfd4',
         type: "NoteText",
         isPinned: true,
         info: {
-            txt: "Fullstack Me Baby!"
+            title: '',
+            txt: "Fullstack Me Baby!",
+            url: '',
+            todos: [],
+            style: {
+                backgroundColor: "#00d"
+            }
         }
-    },
-    {
-        id:'a4vc85',
+    }, {
+        id: 'a4vc85',
         type: "NoteImg",
         isPinned: false,
         info: {
+            title: "Me playing Mi",
+            txt: '',
             url: "http://some-img/me",
-            title: "Me playing Mi"
-        },
-        style: {
-            backgroundColor: "#00d"
+            todos: [],
+            style: {
+                backgroundColor: "#00d"
+            }
         }
-    },
-    {
-        id:'df5sa',
+    }, {
+        id: 'df5sa',
         isPinned: false,
         type: "NoteTodos",
         info: {
-            label: "How was it:",
+            title: "How was it:",
+            txt:'',
+            url: '',
             todos: [
                 { txt: "Do Todo List", doneAt: null },
                 { txt: "Do this", doneAt: 187111111 }
-            ]
+            ],
+            style: {
+                backgroundColor: "#00d"
+            }
         }
     }
 ];
 
 function query() {
-    console.log('Lets start!');
     return Promise.resolve(gNotes);
 }
 
-function addNote(type, isPinned, ) {
+function addNote(type='noteTxt', isPinned=false, title='', txt='', url='') {
     const note = {
-        id: utilService.makeId(),
-        type: "NoteText",
+        id: Date.now(),
+        type,
         isPinned,
-        info,
+        info: {
+            title,
+            txt,
+            url,
+        }
     }
 
+    gNotes.unshift(note);
+    // storageService.saveToStorage(KEY, gNotes)
+    return Promise.resolve(note)
 }

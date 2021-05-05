@@ -1,5 +1,6 @@
 export const utilService = {
-    getCurrencySymbol,makeId
+    getCurrencySymbol,
+    makeId
 }
 
 function makeId(length = 6) {
