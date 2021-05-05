@@ -13,7 +13,7 @@ export  class EmailList extends React.Component {
             <div className="email-list">
 			{this.props.emails.map(email => (
                 // <h1>email list</h1>
-				<EmailPreview toggleEmail={this.toggleEmail} email={email} key={email.id} />
+				<EmailPreview removeEmail={this.props.onRemoveEmail} toggleEmail={this.props.toggleEmail} email={email} key={email.id} />
                 ))}
 		</div>
 	);
