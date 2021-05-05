@@ -21,7 +21,6 @@ export class AppHeader extends React.Component {
 
     render() {
         const { visible } = this.state;
-        console.log(this.state);
         return (
             <nav className="app-header">
                 <div className="logo-container">

@@ -1,10 +1,14 @@
 'use strict'
 
 import utilService from '../../../services/util-service.js'
+import storageService from '../../../services/storage.service.js'
 
 export const noteService = {
     query,
+    addNote
 }
+
+const KEY='notes-keeper';
 
 const gNotes = [
     {
@@ -12,7 +16,10 @@ const gNotes = [
         type: "NoteText",
         isPinned: true,
         info: {
+            title: '',
             txt: "Fullstack Me Baby!",
+            url: '',
+            todos: [],
             style: {
                 backgroundColor: "#00d"
             }
@@ -22,8 +29,10 @@ const gNotes = [
         type: "NoteImg",
         isPinned: false,
         info: {
-            url: "http://some-img/me",
             title: "Me playing Mi",
+            txt: '',
+            url: "http://some-img/me",
+            todos: [],
             style: {
                 backgroundColor: "#00d"
             }
@@ -33,7 +42,9 @@ const gNotes = [
         isPinned: false,
         type: "NoteTodos",
         info: {
-            label: "How was it:",
+            title: "How was it:",
+            txt:'',
+            url: '',
             todos: [
                 { txt: "Do Todo List", doneAt: null },
                 { txt: "Do this", doneAt: 187111111 }
@@ -49,12 +60,19 @@ function query() {
     return Promise.resolve(gNotes);
 }
 
-function addNote(type, isPinned,info) {
+function addNote(type='noteTxt', isPinned=false, title='', txt='', url='') {
     const note = {
-        id: utilService.makeId(),
+        id: Date.now(),
         type,
         isPinned,
-        info,
+        info: {
+            title,
+            txt,
+            url,
+        }
     }
 
+    gNotes.unshift(note);
+    // storageService.saveToStorage(KEY, gNotes)
+    return Promise.resolve(note)
 }
