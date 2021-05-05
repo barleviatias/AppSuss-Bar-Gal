@@ -1,19 +1,19 @@
 'use strict'
 
-import utilService from '../../../services/util-service.js'
-import storageService from '../../../services/storage.service.js'
+import { utilService } from '../../../services/util-service.js'
+import { storageService } from '../../../services/storage.service.js'
 
 export const noteService = {
     query,
     addNote
 }
 
-const KEY='notes-keeper';
+const KEY = 'notes-keeper';
 
 const gNotes = [
     {
         id: 'asfd4',
-        type: "NoteText",
+        type: "noteTxt",
         isPinned: true,
         info: {
             title: '',
@@ -26,7 +26,7 @@ const gNotes = [
         }
     }, {
         id: 'a4vc85',
-        type: "NoteImg",
+        type: "noteImg",
         isPinned: false,
         info: {
             title: "Me playing Mi",
@@ -40,10 +40,10 @@ const gNotes = [
     }, {
         id: 'df5sa',
         isPinned: false,
-        type: "NoteTodos",
+        type: "noteList",
         info: {
             title: "How was it:",
-            txt:'',
+            txt: '',
             url: '',
             todos: [
                 { txt: "Do Todo List", doneAt: null },
@@ -60,19 +60,25 @@ function query() {
     return Promise.resolve(gNotes);
 }
 
-function addNote(type='noteTxt', isPinned=false, title='', txt='', url='') {
+function addNote(type = 'noteTxt', isPinned = false, title = '', txt = '', url = '', todo = '') {
+    if (isPinned === false &&
+        title === '' &&
+        txt === '' &&
+        url === '' &&
+        todo === '') return Promise.reject('no note');
     const note = {
-        id: Date.now(),
+        id: utilService.makeId(),
         type,
         isPinned,
         info: {
             title,
             txt,
             url,
+            todo
         }
     }
 
     gNotes.unshift(note);
-    // storageService.saveToStorage(KEY, gNotes)
+    storageService.saveToStorage(KEY, gNotes)
     return Promise.resolve(note)
 }

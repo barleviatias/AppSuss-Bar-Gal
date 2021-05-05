@@ -29,7 +29,7 @@ export class AppHeader extends React.Component {
                 </div>
                 <div className="header-links-container">
 
-                    {this.state.visible && <ul className="clean-list header-links">
+                    {visible && <ul className="clean-list header-links">
                         <li><NavLink exact to="/">Home</NavLink></li>
                         <li><NavLink to="/book">Book</NavLink></li>
                         <li><NavLink to="/keep">Note Keeper</NavLink></li>

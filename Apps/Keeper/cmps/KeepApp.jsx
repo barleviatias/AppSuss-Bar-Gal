@@ -1,6 +1,5 @@
 
 import { NoteList } from './NoteList.jsx'
-import { NoteTxt } from './NoteTxt.jsx'
 import { noteService } from '../services/keep.service.js'
 
 export class KeepApp extends React.Component {
@@ -10,10 +9,10 @@ export class KeepApp extends React.Component {
         note: {
             type: null,
             isPinned: false,
-            title: null,
-            txt: null,
-            url: null,
-            // todos: []
+            title: '',
+            txt: '',
+            url: '',
+            todos: ''
         }
     }
 
@@ -32,11 +31,25 @@ export class KeepApp extends React.Component {
 
     onAddNote = (ev) => {
         ev.preventDefault();
-        const { type, isPinned, title, txt, url } = this.state.note;
-        // console.log(type, isPinned, title, txt, url);
-        noteService.addNote(type, isPinned, title, txt, url)
-            // .then( noteAded=> {this.loadNotes}
-}
+        const { type, isPinned, title, txt, url, todo } = this.state.note;
+        noteService.addNote(type, isPinned, title, txt, url, todo)
+            .then(noteAded => {
+                this.loadNotes;
+                this.setState({
+                    visible: false,
+                    note: {
+                        type: null,
+                        isPinned: false,
+                        title: '',
+                        txt: '',
+                        url: '',
+                        todos: ''
+                    }
+                })
+
+            })
+    }
+
 
 
     setInputType(type) {
@@ -77,19 +90,16 @@ export class KeepApp extends React.Component {
             {/* ---- NEW NOTES INPUT ---- */}
             <form className="keeper-new-note">
                 <input type="text" name="title" className="keeper-new-title"
-                    onClick={() => this.setInputType('noteTxt')} placeholder="Write a new note" />
-
-                {/* {type === 'noteImg'}
-{type === 'noteList'}
-{type === 'noteVid'}
-{type === 'noteAud'} */}
-
+                    onClick={() => this.setInputType('noteTxt')}
+                    onChange={this.handleChange}
+                     placeholder="Write a new note" />
 
                 {visible && <React.Fragment>
-                    <textarea className="keeper-new-txt" name="txt" id="" cols="30" rows="3" onClick={this.handleChange}></textarea>
-                    <button className="keeper-submit-note" onClick={this.onAddNote}></button>
+                    <textarea className="keeper-new-txt"
+                        name="txt" id="" cols="30" rows="3"
+                        onChange={this.handleChange}></textarea>
+                    <button className="keeper-submit-note" onClick={this.onAddNote}>Add Note</button>
                 </React.Fragment>}
-
 
                 <div className="keeper-btn-inputs">
                     <button className="keeper-img-btn"
