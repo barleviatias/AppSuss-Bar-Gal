@@ -36,7 +36,7 @@ export class EmailApp extends React.Component {
 			<section className="email-container container">
 				<h1>email APP</h1>
 				<Switch>
-					<Route component={EmailCompose} path="/mail/add" />
+					{/* <Route component={EmailCompose} path="/mail/add" /> */}
 					{/* <Route component={EmailDetails} path="/mail/:id" /> */}
 					{/* <Route component={EmailApp} path="/mail" /> */}
 				</Switch>
