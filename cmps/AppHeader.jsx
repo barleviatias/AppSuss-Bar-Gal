@@ -19,7 +19,6 @@ export class AppHeader extends React.Component {
 			<nav className="app-header">
 				<div className="logo-container">
 					<img className="logo-img" src="./assets/img/chipapp.png" alt="" />
-					<h3>AppSuss</h3>
 				</div>
 				<div className="header-links-container">
 					{visible && (
