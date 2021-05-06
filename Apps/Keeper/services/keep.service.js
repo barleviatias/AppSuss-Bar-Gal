@@ -7,7 +7,9 @@ export const noteService = {
     query,
     addNote,
     removeNote,
-    pinNote
+    pinNote,
+    addTodo,
+    removeTodo
 }
 
 const KEY = 'notes-keeper';
@@ -86,7 +88,7 @@ function query() {
 }
 
 function addNote(note) {
-    // if (!note.isPinned && !note.title && !note.txt && !note.url) return Promise.reject('no note');
+    if (!note.isPinned && !note.title && !note.txt && !note.url) return Promise.reject('no note');
     console.log(note);
     const newNote = {
         id: utilService.makeId(),
@@ -108,14 +110,14 @@ function addNote(note) {
 
 
 function removeNote(noteId) {
-    let noteIdx = _getNoteIndx (noteId)
+    let noteIdx = _getNoteIndx(noteId)
     gNotes.splice(noteIdx, 1)
     _saveNotesToStorage();
     return Promise.resolve()
 }
 
-function pinNote(noteId){
-    const noteIdx = _getNoteIndx (noteId);
+function pinNote(noteId) {
+    const noteIdx = _getNoteIndx(noteId);
     const note = gNotes[noteIdx];
     if (note.isPinned) note.isPinned = false;
     else note.isPinned = true;
@@ -124,7 +126,19 @@ function pinNote(noteId){
     return Promise.resolve(note)
 }
 
-function _getNoteIndx (noteId) {
+function addTodo(txt, todos) {
+    const newArray = todos;
+    newArray.push(txt);
+    return newArray
+}
+
+function removeTodo(todos, idx) {
+    const newArray = todos;
+    newArray.splice(idx, 1);
+    return newArray
+}
+
+function _getNoteIndx(noteId) {
     return gNotes.findIndex(note => {
         return noteId === note.id
     })

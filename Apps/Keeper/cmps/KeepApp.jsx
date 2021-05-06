@@ -10,8 +10,9 @@ export class KeepApp extends React.Component {
         note: {
             type: null,
             isPinned: false,
-            isList: false,
-            title: '',
+            title: null,
+            txt: null,
+            urc: null
         }
     }
 
@@ -19,8 +20,7 @@ export class KeepApp extends React.Component {
         this.loadNotes()
     }
 
-
-
+    
 
     // SETING STATE FUNCTIONS
 
@@ -54,32 +54,25 @@ export class KeepApp extends React.Component {
         })
     }
 
-    // setIsList(bollean) {
-    //     this.setState(prevState => ({
-    //         note: {
-    //             ...prevState.note,
-    //             isList: bollean
-    //         }
-    //     }))
-    //     console.log('pinned')
-    // }
+
+    // NOTE ADD / REMOVE / EDIT
 
     onAddNote = (ev) => {
         ev.preventDefault();
         const { note } = this.state;
+        // console.log(note);
         noteService.addNote(note)
             .then(noteAded => {
                 this.loadNotes;
                 this.setState({
-                    visible: false,
+                    // visible: false,
                     note: {
                         type: null,
                         isPinned: false,
-                        isList: false,
+                        isAddTodo: false,
                         title: '',
                         txt: '',
                         url: '',
-                        todos: null,
                     }
                 })
 
@@ -97,16 +90,17 @@ export class KeepApp extends React.Component {
     }
 
 
-
     handleChange = ({ target }) => {
         const field = target.name;
         const value = (target.type === 'number') ? +target.value : target.value;
+        console.log(value);
         this.setState(prevState => ({
             note: {
+                [field]: value,
                 ...prevState.note,
-                [field]: value
             }
         }))
+        // console.log(this.state.note);
     }
 
     render() {
@@ -123,53 +117,60 @@ export class KeepApp extends React.Component {
 
             {/* ---- NEW NOTES INPUT ---- */}
             <form className="keeper-new-note">
-                <input type="text" name="title" className="keeper-new-title"
+                {!type && <input type="text" name="title" className="keeper-new-title"
                     onClick={() => this.setInputType('noteTxt')}
                     onChange={this.handleChange}
-                    placeholder="Write a new note" />
+                    placeholder="Write a new note"/>}
+                {type && <input type="text" name="title" className="keeper-new-title"
+                    onClick={() => this.setInputType(type)}
+                    onChange={this.handleChange}
+                    placeholder="Write a new note"/>}
 
-                {visible && !note.isList && <React.Fragment>
-
-                    <textarea className="keeper-new-txt"
-                        name="txt" id="" cols="30" rows="3"
-                        onChange={this.handleChange}></textarea>
+                {visible && <React.Fragment>
 
                     {/* PIN NEW NOTE */}
                     {!note.isPinned && <button type="button" onClick={() => this.setNewNoteState('isPinned', true)}>Pin</button>}
                     {note.isPinned && <button type="button" onClick={() => this.setNewNoteState('isPinned', false)}>UnPin</button>}
 
+
+                    {/* ADD NEW TEXT */}
+                    {type === 'noteTxt' && <textarea className="keeper-new-txt"
+                        name="txt" id="" cols="30" rows="3"
+                        onChange={this.handleChange}></textarea>}
+
                     {/* ADD NEW IMAGE */}
                     {type === 'noteImg' && <input type="text" name="url" className="keeper-new-img"
                         onChange={this.handleChange} placeholder="add image link" />}
-
-
 
                     {/* ADD NEW VIDEO */}
                     {type === 'noteVid' && <input placeholder="add video link" />}
 
                     {/* ADD NEW AUDIO */}
                     {type === 'noteAud' && <input placeholder="add audio link" />}
-                    {/* {type === 'noteList' && <input  placeholder="add List"/> } */}
 
-                    <button classame="keeper-submit-note" type="submit" onClick={this.onAddNote}>Add Note</button>
                 </React.Fragment>}
                 {/* ADD NEW TODOS */}
-                {type === 'noteTodos' && note.isList && <NoteTodos note={note} onChange={this.handleChange} />}
+                {type === 'noteTodos' && <NoteTodos note={note} />}
 
+                <button classame="keeper-submit-note" type="submit" onClick={this.onAddNote}>Add Note</button>
 
                 {/* KEEPER ADD INPUTS BUTTONS*/}
                 <div className="keeper-btn-inputs">
+                    <button type="button" className="keeper-txt-btn"
+                        onClick={() => {
+                            this.setInputType('noteTxt')
+                        }}
+                        title="add text">Text</button>
+
                     <button type="button" className="keeper-img-btn"
                         onClick={() => {
                             this.setInputType('noteImg')
-                            this.setNewNoteState('isList', false)
                         }}
                         title="add image">Image</button>
 
                     <button type="button" title=" Add-List" className="keeper-list-btn"
                         onClick={() => {
                             this.setInputType('noteTodos');
-                            this.setNewNoteState('isList', true)
                         }}
                         title="add todo list">List
                     </button>
@@ -177,14 +178,12 @@ export class KeepApp extends React.Component {
                     <button type="button" className="keeper-vid-btn"
                         onClick={() => {
                             this.setInputType('noteVid')
-                            this.setNewNoteState('isList', false)
                         }}
                         title="add video">Video
                         </button>
                     <button type="button" className="keeper-aud-btn"
                         onClick={() => {
                             this.setInputType('noteAud')
-                            this.setNewNoteState('isList', false)
                         }}
                         title="add sound">Audio</button>
                 </div>
