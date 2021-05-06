@@ -35,7 +35,7 @@ function getNextEmailId(emailId) {
 function toggleRead(idx) {
 	return Promise.resolve(
 		getEmailById(idx).then((mail) => {
-			mail.isRead = true;
+			mail.isRead = !mail.isRead;
 			return mail;
 		})
 	);
@@ -82,7 +82,7 @@ function _createMails() {
 	gEmails = _loadMailsFromStorage();
 	if (!gEmails || gEmails.length === 0) {
 		gEmails = [];
-		for (var i = 0; i < 5; i++) {
+		for (var i = 0; i < 10; i++) {
 			_createMail();
 		}
 	}

@@ -1,4 +1,7 @@
-
+button{
+    border:0;
+    background-color: rgba(255, 255, 255, 0);
+}
 .email-app{
     /* background-color: gray; */
     flex-direction: row-reverse;
@@ -12,6 +15,9 @@
 }
 .email-card{
     box-shadow: rgba(0, 0, 0, 0.438) 0px 0px 3px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     /* border : 1px black solid; */
     margin-bottom: 3px;
     border-radius: 5px;
@@ -20,7 +26,34 @@
     margin-left: 20px;
 
 }
+.mail-details{
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+}
 .bold{
     font-weight: bold;
-    color: red;
+}
+.read{
+    background-color: #80808073;
+}
+.material-icons.add{
+    font-size: 52px;
+    color:  #1e3595;
+}
+.material-icons.add:hover{
+    font-size: 52px;
+    color: #305fc2;
+}
+.btn-compose{
+    align-items: center;
+    font-size: 32px;
+    font-weight: bold;
+}
+.compose-mail{
+	flex-direction: column;
+}
+.btns-compose{
+    justify-content: space-around;
 }

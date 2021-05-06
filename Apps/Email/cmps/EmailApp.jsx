@@ -1,4 +1,4 @@
-const { NavLink, Route, Switch,Link } = ReactRouterDOM;
+const { NavLink, Route, Switch, Link } = ReactRouterDOM;
 import { emailService } from '../../Email/services/email-service.js';
 import { EmailList } from '../cmps/EmailList.jsx';
 import { EmailDetails } from '../cmps/EmailDetails.jsx';
@@ -15,7 +15,7 @@ export class EmailApp extends React.Component {
 	loadEmail = () => {
 		// console.log('loademail');
 		emailService.query().then((emails) => {
-			this.setState({ emails});
+			this.setState({ emails });
 			// console.log(this.state.emails);
 		});
 	};
@@ -51,7 +51,11 @@ export class EmailApp extends React.Component {
 					</div>
 					<div className="email-panel">
 						<h4>side bar</h4>
-                        <NavLink to ={`/mail/add`}><button>compose</button></NavLink>
+						<NavLink to={`/mail/add`}>
+							<button className="btn-compose flex">
+								<span className="material-icons add">add_circle</span>Compose
+							</button>
+						</NavLink>
 					</div>
 				</div>
 			</section>
