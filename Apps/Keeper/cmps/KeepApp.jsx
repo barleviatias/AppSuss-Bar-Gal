@@ -34,6 +34,16 @@ export class KeepApp extends React.Component {
             })
     }
 
+    pinNewNote(bollean) {
+        this.setState(prevState => ({
+            note: {
+                ...prevState.note,
+                isPinned: bollean
+            }
+        }))
+        console.log('pinned')
+    }
+
     onAddNote = (ev) => {
         ev.preventDefault();
         const { note } = this.state;
@@ -86,7 +96,7 @@ export class KeepApp extends React.Component {
     }
 
     render() {
-        const { notes, visible } = this.state
+        const { notes, visible, note } = this.state
         const { type } = this.state.note
 
         if (!notes) return <div>Loading...</div>
@@ -109,6 +119,10 @@ export class KeepApp extends React.Component {
                         name="txt" id="" cols="30" rows="3"
                         onChange={this.handleChange}></textarea>
 
+                    {/* PIN NEW NOTE */}
+                    {!note.isPinned && <button type="button" onClick={() => this.pinNewNote(true)}>Pin</button>}
+                    {note.isPinned && <button type="button" onClick={() => this.pinNewNote(false)}>UnPin</button>}
+
                     {/* ADD NEW IMAGE */}
                     {type === 'noteImg' && <input type="url" name="noteImg" className="keeper-new-img"
                         onChange={this.handleChange} placeholder="add image link" />}
@@ -127,24 +141,26 @@ export class KeepApp extends React.Component {
                 </React.Fragment>}
 
                 <div className="keeper-btn-inputs">
-                    <button className="keeper-img-btn"
+                    <button type="button" className="keeper-img-btn"
                         onClick={() => this.setInputType('noteImg')}>
                         Image</button>
-                    <button className="keeper-list-btn"
+                    <button type="button" className="keeper-list-btn"
                         onClick={() => this.setInputType('noteList')}>
                         List</button>
-                    <button className="keeper-vid-btn"
+                    <button type="button" className="keeper-vid-btn"
                         onClick={() => this.setInputType('noteVid')}>
                         Video</button>
-                    <button className="keeper-aud-btn"
+                    <button type="button" className="keeper-aud-btn"
                         onClick={() => this.setInputType('noteAud')}>
                         Audio</button>
                 </div>
             </form>
 
+            {/* DISPLAY NOTES */}
             <main className="keeper-notes-container">
-                <NoteList notes={notes}  
-                onRemoveNote={this.onRemoveNote} onPinNote={this.onPinNote}/>
+                <NoteList notes={notes}
+                    onRemoveNote={this.onRemoveNote}
+                    onPinNote={this.onPinNote} />
             </main>
         </section>
         )
