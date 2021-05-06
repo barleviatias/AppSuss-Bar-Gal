@@ -17,8 +17,7 @@ export function App() {
 			</header>
 			<main>
 				<Switch>
-					<Route  component={EmailCompose} path="/mail/add" />
-					<Route  component={EmailDetails} path="/mail/:id" />
+					{/* <Route  component={EmailCompose} path="/mail/add" /> */}
 					<Route  component={EmailApp} path="/mail" />
 					<Route exact component={AboutUs} path='/about' />
 					<Route exact component={KeepApp} path='/keep' />

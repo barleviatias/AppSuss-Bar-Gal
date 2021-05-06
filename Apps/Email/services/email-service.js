@@ -7,14 +7,14 @@ export const emailService = {
 	removeEmail,
 	addEmail,
 	getNextEmailId,
-    toggleStar
+    toggleStar,
+    toggleReadOn
 };
 const KEY = 'emailsDB';
 var gEmails = storageService.loadFromStorage(KEY) || [];
 _createMails();
 
 _saveEmailsToStorage();
-console.log(gEmails);
 function query() {
 	_saveEmailsToStorage();
 	return Promise.resolve(gEmails);
@@ -23,7 +23,7 @@ function getEmailById(id) {
 	var currMail = gEmails.find((mail) => {
 		return mail.id === id;
 	});
-	console.log('email by id', currMail);
+	// console.log('email by id', currMail);
 	return Promise.resolve(currMail);
 }
 function getNextEmailId(emailId) {
@@ -37,6 +37,14 @@ function toggleRead(idx) {
 	return Promise.resolve(
 		getEmailById(idx).then((mail) => {
 			mail.isRead = !mail.isRead;
+			return mail;
+		})
+	);
+}
+function toggleReadOn(idx) {
+	return Promise.resolve(
+		getEmailById(idx).then((mail) => {
+			mail.isRead = true;
 			return mail;
 		})
 	);
