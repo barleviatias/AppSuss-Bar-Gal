@@ -23,6 +23,10 @@ export class EmailApp extends React.Component {
 		emailService.toggleRead(idx);
 		this.loadEmail();
 	};
+	toggleStar = (idx) => {
+		emailService.toggleStar(idx);
+		this.loadEmail();
+	};
 	onRemoveEmail = (idx) => {
 		emailService.removeEmail(idx).then(() => {
 			this.loadEmail();
@@ -33,19 +37,19 @@ export class EmailApp extends React.Component {
 		if (!emails) return <div>Loading...</div>;
 		// console.log(emails);
 		return (
-			<section className="email-container container">
+			<section className="email-container ">
 				<h1>email APP</h1>
-				<Switch>
-					{/* <Route component={EmailCompose} path="/mail/add" /> */}
-					{/* <Route component={EmailDetails} path="/mail/:id" /> */}
-					{/* <Route component={EmailApp} path="/mail" /> */}
-				</Switch>
-				<div className="email-app flex">
+				<div className="email-app container flex">
 					<div className="inbox">
 						<h2>inbox!</h2>
+				<Switch>
+					<Route component={EmailCompose} path="/mail/add" />
+					{/* <Route component={EmailList} path="/mail/" /> */}
+				</Switch>
 						<EmailList
 							onRemoveEmail={this.onRemoveEmail}
 							toggleEmail={this.toggleEmail}
+							toggleStar={this.toggleStar}
 							emails={emails}
 						/>
 					</div>

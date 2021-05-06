@@ -7,6 +7,7 @@ export const emailService = {
 	removeEmail,
 	addEmail,
 	getNextEmailId,
+    toggleStar
 };
 const KEY = 'emailsDB';
 var gEmails = storageService.loadFromStorage(KEY) || [];
@@ -36,6 +37,14 @@ function toggleRead(idx) {
 	return Promise.resolve(
 		getEmailById(idx).then((mail) => {
 			mail.isRead = !mail.isRead;
+			return mail;
+		})
+	);
+}
+function toggleStar(idx) {
+	return Promise.resolve(
+		getEmailById(idx).then((mail) => {
+			mail.isStarred = !mail.isStarred
 			return mail;
 		})
 	);

@@ -30,6 +30,7 @@ body {
 main{
     display: flex;
     justify-content: center;
+    padding: 2vw;
     /* margin-left: 20px;
     margin-right: 20px; */
 }

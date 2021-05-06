@@ -41,10 +41,13 @@ button{
 .material-icons.add{
     font-size: 52px;
     color:  #1e3595;
+    
 }
 .material-icons.add:hover{
     font-size: 52px;
     color: #305fc2;
+    animation: heartBeat;
+    animation-duration: 0.8s; 
 }
 .btn-compose{
     align-items: center;
@@ -53,7 +56,39 @@ button{
 }
 .compose-mail{
 	flex-direction: column;
+    width: 500px;
+}
+.compose-mail input{
+    background-color: rgba(255, 255, 255, 0);
+	border-top: 0;
+    border-right: 0;
+    border-left: 0;
 }
 .btns-compose{
     justify-content: space-around;
+}
+.material-icons{
+    font-size: 32px;
+}
+.material-icons.fa-mail{
+    color:#1982c4;
+    
+}
+.material-icons.fa-star{
+    color:#ffca3a;
+}
+.material-icons.fa-trash{
+    color:#ff595e;
+}
+.material-icons.fa-mail:hover{
+    animation: heartBeat;
+    animation-duration: 0.8s; 
+}
+.material-icons.fa-star{
+    color:#ffca3a;
+}
+.material-icons.fa-trash:hover{
+    animation: tada;
+    animation-duration: 0.8s; 
+
 }

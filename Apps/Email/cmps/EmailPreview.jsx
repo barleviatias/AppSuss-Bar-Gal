@@ -3,7 +3,7 @@ export function EmailPreview(props) {
 	// export class EmailPreview extends React.Compononet{
 	// console.log(props);
 	const email = props.email;
-	const { subject, body, isRead, sentAt } = email;
+	const { subject, body, isRead,isStarred, sentAt } = email;
 
 	const dateObject = new Date(sentAt);
 	// console.log(dateObject);
@@ -28,17 +28,19 @@ export function EmailPreview(props) {
 						props.toggleEmail(email.id);
 					}}
 				>
-					<span className="material-icons">{!isRead ? 'mail' : 'drafts'}</span>
+					<span className="material-icons fa-mail">{!isRead ? 'mail' : 'drafts'}</span>
 				</button>
-				<button>
-					<span className="material-icons">star</span>
+				<button onClick={() => {
+						props.toggleStar(email.id);
+					}}>
+					<span className="material-icons fa-star">{!isStarred ? 'star' : 'star_border'}</span>
 				</button>
 				<button
 					onClick={() => {
 						props.onRemoveEmail(email.id);
 					}}
 				>
-					<span className="material-icons">delete</span>
+					<span className="material-icons fa-trash">delete</span>
 				</button>
 			</div>
 		</div>
