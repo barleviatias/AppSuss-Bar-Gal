@@ -1,10 +1,10 @@
 
-export function NoteCard({ note, onRemoveNote, pinNote }) {
+export function NoteCard({ note, onRemoveNote, onPinNote }) {
     const { title, txt, url, todos } = note.info
     return (
         <div className={"note-card"}>
-            {note.isPinned && <button className="pinned" onClick={pinNote}>📌</button>}
-            {!note.isPinned && <button className="not-pinned" onClick={pinNote}>🔘</button>}
+            {note.isPinned && <button className="pinned" onClick={()=>onPinNote(note.id)}>📌</button>}
+            {!note.isPinned && <button className="not-pinned" onClick={()=>onPinNote(note.id)}>🔘</button>}
             <h1>{title}</h1>
             <p>{txt}</p>
             {url && <img src={url} alt={title} />}

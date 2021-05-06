@@ -6,12 +6,12 @@ import { storageService } from '../../../services/storage.service.js'
 export const noteService = {
     query,
     addNote,
-    removeNote
+    removeNote,
+    pinNote
 }
 
 const KEY = 'notes-keeper';
 
-// const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromStorage(KEY) : 
 const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromStorage(KEY) : ([
     {
         id: 'asfd4',
@@ -21,8 +21,17 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         info: {
             title: '',
             txt: "Fullstack Me Baby!",
-            // url: '',
-            // todos: [],
+            style: {
+                backgroundColor: "#00d"
+            }
+        }
+    }, {
+        id: 'ka2sk22',
+        type: "noteTxt",
+        isAddList: false,
+        isPinned: false,
+        info: {
+            title: 'buy milk',
             style: {
                 backgroundColor: "#00d"
             }
@@ -34,9 +43,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         isAddList: false,
         info: {
             title: "Me playing Mi",
-            // txt: '',
             url: "https://www.itsme.co.il/wp-content/uploads/2019/02/itsme_smartphone-1.png",
-            // todos: [],
             style: {
                 backgroundColor: "#00d"
             }
@@ -58,6 +65,19 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
                 backgroundColor: "#00d"
             }
         }
+    }, {
+        id: 'e34ksa',
+        isPinned: true,
+        isAddList: false,
+        type: "noteList",
+        info: {
+            title: "Send to mom",
+            txt: 'wowo',
+            url: 'https://mymodernmet.com/wp/wp-content/uploads/2020/07/dan-zafra-adirondacks-4.jpg',
+            style: {
+                backgroundColor: "#00d"
+            }
+        }
     }
 ]);
 
@@ -65,7 +85,6 @@ function query() {
     return Promise.resolve(gNotes);
 }
 
-// function addNote(type = 'noteTxt', isPinned = false, isAddList = false, title = '', txt = '', url = '', todo = ['']) {
 function addNote(note) {
     if (!note.isPinned && !note.title && !note.txt && !note.url) return Promise.reject('no note');
     const newNote = {
@@ -88,14 +107,26 @@ function addNote(note) {
 
 
 function removeNote(noteId) {
-    // console.log(noteId);
-    var noteIdx = gNotes.findIndex(function (note) {
-        return noteId === note.id
-    })
+    let noteIdx = _getNoteIndx (noteId)
     gNotes.splice(noteIdx, 1)
     _saveNotesToStorage();
-    console.log('delete!');
     return Promise.resolve()
+}
+
+function pinNote(noteId){
+    const noteIdx = _getNoteIndx (noteId);
+    const note = gNotes[noteIdx];
+    if (note.isPinned) note.isPinned = false;
+    else note.isPinned = true;
+    _saveNotesToStorage();
+
+    return Promise.resolve(note)
+}
+
+function _getNoteIndx (noteId) {
+    return gNotes.findIndex(note => {
+        return noteId === note.id
+    })
 }
 
 

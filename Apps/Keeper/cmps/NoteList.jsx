@@ -6,23 +6,27 @@ import { NoteVid } from './NoteVideo.jsx'
 import { NoteAud } from './NoteAudio.jsx'
 
 
-export function NoteList({ notes, onRemoveNote, pinNote }) {
+export function NoteList({ notes, onRemoveNote, onPinNote }) {
     return <section className="notes-container container">
-            <h2>Pinned Notes 📌</h2>
+        <h2>Pinned Notes 📌</h2>
         <div className="notes-pinned" key>
             {notes.map(note => {
                 return note.isPinned &&
-                <NoteCard note={note} key={note.id} onRemoveNote={onRemoveNote} pinNote={pinNote} />
+                    <NoteCard note={note} key={note.id}
+                        onRemoveNote={onRemoveNote}
+                        onPinNote={onPinNote} />
             })}
-            </div>
-            <h2>Notes 🔘</h2>
+        </div>
+        <h2>Notes 🔘</h2>
         <div className="notes-not-pinned">
             {notes.map(note => {
                 return (
-                    !note.isPinned && <NoteCard note={note} key={note.id} onRemoveNote={onRemoveNote} pinNote={pinNote} />
-                    
-                    )
-                })}
-                </div>
+                    !note.isPinned && <NoteCard note={note} key={note.id}
+                        onRemoveNote={onRemoveNote}
+                        onPinNote={onPinNote} />
+
+                )
+            })}
+        </div>
     </section>
 }

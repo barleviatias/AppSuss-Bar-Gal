@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     align-content: center;
+    margin: 0 auto;
 }
 
 .keeper-new-note{
@@ -30,6 +31,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
 }
 
 .notes-pinned{
@@ -52,7 +54,7 @@
     padding: 2rem;
     max-width: 25vw;
     margin-block-end: 1rem;
-    margin-inline-end: 1rem
+    margin-inline: 1rem
 }
 
 .note-card img {
