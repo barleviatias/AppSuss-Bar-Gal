@@ -21,8 +21,8 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         info: {
             title: '',
             txt: "Fullstack Me Baby!",
-            url: '',
-            todos: [],
+            // url: '',
+            // todos: [],
             style: {
                 backgroundColor: "#00d"
             }
@@ -34,9 +34,9 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         isAddList: false,
         info: {
             title: "Me playing Mi",
-            txt: '',
+            // txt: '',
             url: "https://www.itsme.co.il/wp-content/uploads/2019/02/itsme_smartphone-1.png",
-            todos: [],
+            // todos: [],
             style: {
                 backgroundColor: "#00d"
             }
@@ -48,8 +48,8 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         type: "noteList",
         info: {
             title: "How was it:",
-            txt: '',
-            url: '',
+            // txt: '',
+            // url: '',
             todos: [
                 { txt: "Do Todo List", doneAt: null },
                 { txt: "Do this", doneAt: 187111111 }
@@ -65,27 +65,25 @@ function query() {
     return Promise.resolve(gNotes);
 }
 
-function addNote(type = 'noteTxt', isPinned = false, isAddList = false, title = '', txt = '', url = '', todo = ['']) {
-    if (isPinned === false &&
-        title === '' &&
-        txt === '' &&
-        url === '' ) return Promise.reject('no note');
-    const note = {
+// function addNote(type = 'noteTxt', isPinned = false, isAddList = false, title = '', txt = '', url = '', todo = ['']) {
+function addNote(note) {
+    if (!note.isPinned && !note.title && !note.txt && !note.url) return Promise.reject('no note');
+    const newNote = {
         id: utilService.makeId(),
-        type,
-        isPinned,
-        isAddList,
+        type: note.type,
+        isPinned: note.isPinned,
+        isAddList: note.isAddList,
         info: {
-            title,
-            txt,
-            url,
-            todo
+            title: note.title,
+            txt: note.txt,
+            url: note.url,
+            todo: note.todo
         }
     }
 
-    gNotes.unshift(note);
+    gNotes.unshift(newNote);
     _saveNotesToStorage();
-    return Promise.resolve(note)
+    return Promise.resolve(newNote)
 }
 
 
@@ -96,7 +94,7 @@ function removeNote(noteId) {
     })
     gNotes.splice(noteIdx, 1)
     _saveNotesToStorage();
-console.log('delete!');
+    console.log('delete!');
     return Promise.resolve()
 }
 

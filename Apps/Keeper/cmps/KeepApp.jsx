@@ -1,5 +1,6 @@
 
 import { NoteList } from './NoteList.jsx'
+import { NoteTodos } from './NoteTodos.jsx'
 import { noteService } from '../services/keep.service.js'
 
 export class KeepApp extends React.Component {
@@ -12,9 +13,9 @@ export class KeepApp extends React.Component {
             isPinned: false,
             isAddList: false,
             title: '',
-            txt: '',
-            url: '',
-            todos: null
+            // txt: '',
+            // url: '',
+            // todos: null
         }
     }
 
@@ -30,11 +31,14 @@ export class KeepApp extends React.Component {
             })
     }
 
+    pinNote = () => {
+        console.log('pinning');
+    }
 
     onAddNote = (ev) => {
         ev.preventDefault();
-        const { type, isPinned, title, isAddList, txt, url, todo } = this.state.note;
-        noteService.addNote(type, isPinned, isAddList, title, txt, url, todo)
+        const { note } = this.state;
+        noteService.addNote(note)
             .then(noteAded => {
                 this.loadNotes;
                 this.setState({
@@ -52,16 +56,16 @@ export class KeepApp extends React.Component {
 
             })
             .catch(() => {
-                this.setState({visible: false})
+                this.setState({ visible: false })
             })
     }
 
     onRemoveNote = (noteId) => {
         noteService.removeNote(noteId)
-          .then(() => {
-            this.loadNotes()
-          })
-      }
+            .then(() => {
+                this.loadNotes()
+            })
+    }
 
 
     setInputType(type) {
@@ -105,7 +109,22 @@ export class KeepApp extends React.Component {
                     <textarea className="keeper-new-txt"
                         name="txt" id="" cols="30" rows="3"
                         onChange={this.handleChange}></textarea>
-                    <button className="keeper-submit-note" onClick={this.onAddNote}>Add Note</button>
+
+                    {/* ADD NEW IMAGE */}
+                    {type === 'noteImg' && <input type="image" name="noteImg" className="keeper-new-img"
+                        onChange={this.handleChange} placeholder="add image link" />}
+
+                    {/* ADD NEW TODOS */}
+                    {type === 'noteTodos' && <NoteTodos />}
+
+                    {/* ADD NEW VIDEO */}
+                    {type === 'noteVid' && <input placeholder="add video link" />}
+
+                    {/* ADD NEW AUDIO */}
+                    {type === 'noteAud' && <input placeholder="add audio link" />}
+                    {/* {type === 'noteList' && <input  placeholder="add List"/> } */}
+
+                    <button classame="keeper-submit-note" onClick={this.onAddNote}>Add Note</button>N
                 </React.Fragment>}
 
                 <div className="keeper-btn-inputs">
@@ -125,8 +144,8 @@ export class KeepApp extends React.Component {
             </form>
 
             <main className="keeper-notes-container">
-                <NoteList notes={notes} handleChange={this.handleChange} onRemoveNote={this.onRemoveNote}
-                 />
+                <NoteList notes={notes}  
+                onRemoveNote={this.onRemoveNote} pinNote={this.pinNote}/>
             </main>
         </section>
         )
