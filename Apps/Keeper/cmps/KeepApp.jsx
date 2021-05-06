@@ -124,7 +124,7 @@ export class KeepApp extends React.Component {
                     {note.isPinned && <button type="button" onClick={() => this.pinNewNote(false)}>UnPin</button>}
 
                     {/* ADD NEW IMAGE */}
-                    {type === 'noteImg' && <input type="url" name="noteImg" className="keeper-new-img"
+                    {type === 'noteImg' && <input type="text" name="url" className="keeper-new-img"
                         onChange={this.handleChange} placeholder="add image link" />}
 
                     {/* ADD NEW TODOS */}

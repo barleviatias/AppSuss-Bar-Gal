@@ -1,4 +1,6 @@
 
+import {EditCard} from './NoteEdit.jsx'
+
 export function NoteCard({ note, onRemoveNote, onPinNote }) {
     const { title, txt, url, todos } = note.info
     return (
