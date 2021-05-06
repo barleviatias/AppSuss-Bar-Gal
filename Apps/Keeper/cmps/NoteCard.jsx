@@ -10,7 +10,7 @@ export function NoteCard({ note, onRemoveNote, onPinNote }) {
             <h1>{title}</h1>
             <p>{txt}</p>
             {url && <img src={url} alt={title} />}
-            {note.isAddList &&
+            {note.isList &&
                 <ul> {todos.map((todo, idx) => {
                     return <li key={idx}>{todo.txt} <span>{todo.doneAt}</span> </li>
                 })}

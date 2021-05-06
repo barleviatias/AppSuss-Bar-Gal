@@ -92,7 +92,7 @@ function addNote(note) {
         id: utilService.makeId(),
         type: note.type,
         isPinned: note.isPinned,
-        isAddList: note.isAddList,
+        isList: note.isList,
         info: {
             title: note.title,
             txt: note.txt,

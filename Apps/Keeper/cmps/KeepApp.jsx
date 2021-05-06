@@ -7,11 +7,10 @@ export class KeepApp extends React.Component {
     state = {
         notes: null,
         visible: false,
-        isAddList: false,
         note: {
             type: null,
             isPinned: false,
-            isAddList: false,
+            isList: false,
             title: '',
         }
     }
@@ -19,6 +18,11 @@ export class KeepApp extends React.Component {
     componentDidMount() {
         this.loadNotes()
     }
+
+
+
+
+    // SETING STATE FUNCTIONS
 
     loadNotes = () => {
         noteService.query()
@@ -34,15 +38,31 @@ export class KeepApp extends React.Component {
             })
     }
 
-    pinNewNote(bollean) {
+    setNewNoteState(type, bollean) {
         this.setState(prevState => ({
             note: {
                 ...prevState.note,
-                isPinned: bollean
+                [type]: bollean
             }
         }))
-        console.log('pinned')
     }
+
+    setInputType(type) {
+        this.setState({
+            visible: true,
+            note: { type, }
+        })
+    }
+
+    // setIsList(bollean) {
+    //     this.setState(prevState => ({
+    //         note: {
+    //             ...prevState.note,
+    //             isList: bollean
+    //         }
+    //     }))
+    //     console.log('pinned')
+    // }
 
     onAddNote = (ev) => {
         ev.preventDefault();
@@ -55,7 +75,7 @@ export class KeepApp extends React.Component {
                     note: {
                         type: null,
                         isPinned: false,
-                        isAddList: false,
+                        isList: false,
                         title: '',
                         txt: '',
                         url: '',
@@ -77,12 +97,6 @@ export class KeepApp extends React.Component {
     }
 
 
-    setInputType(type) {
-        this.setState({
-            visible: true,
-            note: { type, }
-        })
-    }
 
     handleChange = ({ target }) => {
         const field = target.name;
@@ -114,21 +128,21 @@ export class KeepApp extends React.Component {
                     onChange={this.handleChange}
                     placeholder="Write a new note" />
 
-                {visible && <React.Fragment>
+                {visible && !note.isList && <React.Fragment>
+
                     <textarea className="keeper-new-txt"
                         name="txt" id="" cols="30" rows="3"
                         onChange={this.handleChange}></textarea>
 
                     {/* PIN NEW NOTE */}
-                    {!note.isPinned && <button type="button" onClick={() => this.pinNewNote(true)}>Pin</button>}
-                    {note.isPinned && <button type="button" onClick={() => this.pinNewNote(false)}>UnPin</button>}
+                    {!note.isPinned && <button type="button" onClick={() => this.setNewNoteState('isPinned', true)}>Pin</button>}
+                    {note.isPinned && <button type="button" onClick={() => this.setNewNoteState('isPinned', false)}>UnPin</button>}
 
                     {/* ADD NEW IMAGE */}
                     {type === 'noteImg' && <input type="text" name="url" className="keeper-new-img"
                         onChange={this.handleChange} placeholder="add image link" />}
 
-                    {/* ADD NEW TODOS */}
-                    {type === 'noteTodos' && <NoteTodos />}
+
 
                     {/* ADD NEW VIDEO */}
                     {type === 'noteVid' && <input placeholder="add video link" />}
@@ -139,20 +153,40 @@ export class KeepApp extends React.Component {
 
                     <button classame="keeper-submit-note" type="submit" onClick={this.onAddNote}>Add Note</button>
                 </React.Fragment>}
+                {/* ADD NEW TODOS */}
+                {type === 'noteTodos' && note.isList && <NoteTodos note={note} onChange={this.handleChange} />}
 
+
+                {/* KEEPER ADD INPUTS BUTTONS*/}
                 <div className="keeper-btn-inputs">
                     <button type="button" className="keeper-img-btn"
-                        onClick={() => this.setInputType('noteImg')}>
-                        Image</button>
-                    <button type="button" className="keeper-list-btn"
-                        onClick={() => this.setInputType('noteList')}>
-                        List</button>
+                        onClick={() => {
+                            this.setInputType('noteImg')
+                            this.setNewNoteState('isList', false)
+                        }}
+                        title="add image">Image</button>
+
+                    <button type="button" title=" Add-List" className="keeper-list-btn"
+                        onClick={() => {
+                            this.setInputType('noteTodos');
+                            this.setNewNoteState('isList', true)
+                        }}
+                        title="add todo list">List
+                    </button>
+
                     <button type="button" className="keeper-vid-btn"
-                        onClick={() => this.setInputType('noteVid')}>
-                        Video</button>
+                        onClick={() => {
+                            this.setInputType('noteVid')
+                            this.setNewNoteState('isList', false)
+                        }}
+                        title="add video">Video
+                        </button>
                     <button type="button" className="keeper-aud-btn"
-                        onClick={() => this.setInputType('noteAud')}>
-                        Audio</button>
+                        onClick={() => {
+                            this.setInputType('noteAud')
+                            this.setNewNoteState('isList', false)
+                        }}
+                        title="add sound">Audio</button>
                 </div>
             </form>
 
@@ -162,7 +196,7 @@ export class KeepApp extends React.Component {
                     onRemoveNote={this.onRemoveNote}
                     onPinNote={this.onPinNote} />
             </main>
-        </section>
+        </section >
         )
     }
 }
