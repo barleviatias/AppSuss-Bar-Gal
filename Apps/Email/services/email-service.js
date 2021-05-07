@@ -19,7 +19,7 @@ function query(filterBy) {
 	if (!filterBy) {
 		_saveEmailsToStorage();
 		return Promise.resolve(gEmails);
-	}else{
+	}
 
         var { keyword,title, date, isStared, isRead } = filterBy
         const filterEmails=gEmails.filter(email=>{
@@ -27,7 +27,7 @@ function query(filterBy) {
         })
         console.log(filterEmails);
         return Promise.resolve(filterEmails)
-    }
+    
 }
 
 function getEmailById(id) {

@@ -3,7 +3,6 @@ export class EmailFilter extends React.Component {
     state = {
         filterBy: {
             keyword: '',
-            maxPriceRange: 200,
         }
     }
 
@@ -16,7 +15,9 @@ export class EmailFilter extends React.Component {
     onFilter = (ev) => {
         ev.preventDefault()
         const {filterBy} = this.state
+
         console.log(this.props);
+        console.log(filterBy);
         this.props.onSetFilter(filterBy)
     }
 

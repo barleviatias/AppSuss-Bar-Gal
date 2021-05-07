@@ -9,21 +9,23 @@ export class EmailApp extends React.Component {
         filterBy: {
             subject: '',
             body: '',
-            maxSpeed: '',
-            ctg: ''
+            ctg: '',
+            keyword:''
           }
 	};
 	componentDidMount() {
 		console.log('mounting');
 		this.loadEmail();
+        console.log(this.state.filterBy);
 		emailService.query();
 	}
 	loadEmail = () => {
 		// console.log('loademail');
-		emailService.query().then((emails) => {
+		emailService.query(this.state.filterBy).then((emails) => {
 			this.setState({ emails });
 			// console.log(this.state.emails);
 		});
+        console.log(this.state.filterBy);
 	};
 	toggleEmail = (idx) => {
 		emailService.toggleRead(idx);
