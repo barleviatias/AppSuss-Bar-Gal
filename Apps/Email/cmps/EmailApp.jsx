@@ -7,8 +7,8 @@ export class EmailApp extends React.Component {
 	state = {
 		emails: null,
         filterBy: {
-            vendor: '',
-            minSpeed: '',
+            subject: '',
+            body: '',
             maxSpeed: '',
             ctg: ''
           }
@@ -38,6 +38,9 @@ export class EmailApp extends React.Component {
 			this.loadEmail();
 		});
 	};
+    onSetFilter = (filterBy) => {
+		this.setState({ filterBy }, this.loadEmail);
+	};
 	render() {
 		const { emails } = this.state;
 		if (!emails) return <div>Loading...</div>;
@@ -57,6 +60,7 @@ export class EmailApp extends React.Component {
 										onRemoveEmail={this.onRemoveEmail}
 										toggleEmail={this.toggleEmail}
 										toggleStar={this.toggleStar}
+                                        onSetFilter={this.onSetFilter}
 										emails={emails}
 									/>
 								)}

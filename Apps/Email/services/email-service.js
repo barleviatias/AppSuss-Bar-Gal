@@ -19,12 +19,15 @@ function query(filterBy) {
 	if (!filterBy) {
 		_saveEmailsToStorage();
 		return Promise.resolve(gEmails);
-	}
-    var { keyword,title, date, isStared, isRead } = filterBy
-    const filterEmails=gEmails.filter(email=>{
-        return email.subject.includes(keyword)|| email.body.includes(keyword)
-    })
-    return Promise.resolve(filterEmails)
+	}else{
+
+        var { keyword,title, date, isStared, isRead } = filterBy
+        const filterEmails=gEmails.filter(email=>{
+            return email.subject.includes(keyword)|| email.body.includes(keyword)
+        })
+        console.log(filterEmails);
+        return Promise.resolve(filterEmails)
+    }
 }
 
 function getEmailById(id) {
