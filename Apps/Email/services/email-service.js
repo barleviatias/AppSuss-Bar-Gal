@@ -7,18 +7,26 @@ export const emailService = {
 	removeEmail,
 	addEmail,
 	getNextEmailId,
-    toggleStar,
-    toggleReadOn
+	toggleStar,
+	toggleReadOn,
 };
 const KEY = 'emailsDB';
 var gEmails = storageService.loadFromStorage(KEY) || [];
 _createMails();
 
 _saveEmailsToStorage();
-function query() {
-	_saveEmailsToStorage();
-	return Promise.resolve(gEmails);
+function query(filterBy) {
+	if (!filterBy) {
+		_saveEmailsToStorage();
+		return Promise.resolve(gEmails);
+	}
+    var { keyword,title, date, isStared, isRead } = filterBy
+    const filterEmails=gEmails.filter(email=>{
+        return email.subject.includes(keyword)|| email.body.includes(keyword)
+    })
+    return Promise.resolve(filterEmails)
 }
+
 function getEmailById(id) {
 	var currMail = gEmails.find((mail) => {
 		return mail.id === id;
@@ -28,9 +36,9 @@ function getEmailById(id) {
 }
 function getNextEmailId(emailId) {
 	const emailIdx = gEmails.findIndex((email) => email.id === emailId);
-	var nextEmailIdx = emailIdx +1;
+	var nextEmailIdx = emailIdx + 1;
 	nextEmailIdx = nextEmailIdx === gEmails.length ? 0 : nextEmailIdx;
-    console.log(nextEmailIdx);
+	console.log(nextEmailIdx);
 	return gEmails[nextEmailIdx].id;
 }
 function toggleRead(idx) {
@@ -52,7 +60,7 @@ function toggleReadOn(idx) {
 function toggleStar(idx) {
 	return Promise.resolve(
 		getEmailById(idx).then((mail) => {
-			mail.isStarred = !mail.isStarred
+			mail.isStarred = !mail.isStarred;
 			return mail;
 		})
 	);

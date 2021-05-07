@@ -6,6 +6,12 @@ import { EmailCompose } from '../cmps/EmailCompose.jsx';
 export class EmailApp extends React.Component {
 	state = {
 		emails: null,
+        filterBy: {
+            vendor: '',
+            minSpeed: '',
+            maxSpeed: '',
+            ctg: ''
+          }
 	};
 	componentDidMount() {
 		console.log('mounting');
@@ -38,7 +44,7 @@ export class EmailApp extends React.Component {
 		// console.log(emails);
 		return (
 			<section className="email-container ">
-				<h1>email APP</h1>
+				
 				<div className="email-app container flex">
 					<div className="inbox">
 						<h2>inbox!</h2>
