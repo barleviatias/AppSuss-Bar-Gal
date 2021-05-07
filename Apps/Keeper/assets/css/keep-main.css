@@ -68,8 +68,14 @@
 .note-card img {
     max-height: 150px;
     margin: 0 auto;
-
+    
 }
 
+.note-card-clicked{
+    border: gray 2px solid;
+    height: 70vh;
+    width: 70vw;
+    margin: 0 auto;
 
+}
 

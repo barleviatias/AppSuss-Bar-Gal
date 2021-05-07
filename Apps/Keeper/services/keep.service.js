@@ -86,10 +86,6 @@ function query() {
 
 function addNote(note) {
     if (!note.isPinned && !note.title && !note.txt && !note.url && !note.todos) return Promise.reject('no note');
-    console.log(note);
-    // let todos;
-    // if(note.todos) todos = note.todos.split(',');
-    // else todos = null;
     const newNote = {
         id: utilService.makeId(),
         type: note.type,

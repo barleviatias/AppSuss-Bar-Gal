@@ -57,20 +57,13 @@ export class KeepApp extends React.Component {
         })
     }
 
-
-    // TODO: fix this fucking proble, how does the todos show in "then" but not in "this.then"?!?!?!?!?!
     onAddNewList = (list) => {
-        console.log('@@@@@', list);
         this.setState(prevState => ({
             note: {
                 ...prevState.note,
                 todos: list
             }
-        }),this.onAddNote)
-        // console.log(this);
-        
-        // this.onAddNote()
-        // console.log(list);
+        }), this.onAddNote)
     }
 
 
@@ -79,8 +72,6 @@ export class KeepApp extends React.Component {
     onAddNote = () => {
         event.preventDefault();
         const { note } = this.state;
-        console.log('onAddNote not @@@@e:', note);
-        console.log('onAddNote this:', this.state);
         noteService.addNote(note)
             .then(() => {
                 this.loadNotes;
@@ -125,9 +116,10 @@ export class KeepApp extends React.Component {
 
     render() {
         const { notes, visible, note } = this.state
-        const { type, title} = this.state.note
+        const { type, title } = this.state.note
         const noteStyle = {
-            backgroundColor: note.backgroundColor}
+            backgroundColor: note.backgroundColor
+        }
         if (!notes) return <div>Loading...</div>
 
         return (<section className="keeper-container">
@@ -137,23 +129,19 @@ export class KeepApp extends React.Component {
             </header>
 
             {/* ////TODO: move input to component\\\\ */}
-
             {/* ----- NEW NOTES INPUT ----- */}
             <form className="keeper-new-note" style={noteStyle}>
-                {!type && <input type="text" name="title" className="keeper-new-title" 
+                {!type && <input type="text" name="title" className="keeper-new-title"
                     onClick={() => this.setInputType('noteTxt')}
                     placeholder="Write a new note" />}
 
                 {type && <input type="text" name="title" className="keeper-new-title"
                     onClick={() => this.setInputType(type)}
                     onChange={this.handleChange}
-                    placeholder="title"/>}
+                    placeholder="title" />}
 
                 {visible && <React.Fragment>
 
-                    {/* PIN NEW NOTE */}
-                    {!note.isPinned && <button type="button" onClick={() => this.setNewNoteState('isPinned', true)}>Pin</button>}
-                    {note.isPinned && <button type="button" onClick={() => this.setNewNoteState('isPinned', false)}>UnPin</button>}
 
 
                     {/* ADD NEW TEXT */}
@@ -213,8 +201,12 @@ export class KeepApp extends React.Component {
                         }}
                         title="add sound">Audio</button>
 
-<input type="color" name="backgroundColor" className="keeper-new-img" onChange={this.handleChange}/>
-                  
+                    <input type="color" name="backgroundColor" className="keeper-new-img" onChange={this.handleChange} />
+
+                    {/* PIN NEW NOTE */}
+                    {!note.isPinned && <button type="button" onClick={() => this.setNewNoteState('isPinned', true)}>Pin</button>}
+                    {note.isPinned && <button type="button" onClick={() => this.setNewNoteState('isPinned', false)}>UnPin</button>}
+
                 </div>
             </form>
 
