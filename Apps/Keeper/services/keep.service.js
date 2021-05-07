@@ -59,10 +59,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
             title: "How was it:",
             // txt: '',
             // url: '',
-            todos: [
-                { txt: "Do Todo List", doneAt: null },
-                { txt: "Do this", doneAt: 187111111 }
-            ],
+            todos: ["Do Todo List", "Do this"],
             style: {
                 backgroundColor: "white"
             }

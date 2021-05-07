@@ -21,7 +21,7 @@ export function NoteCard({ note, onRemoveNote, onPinNote }) {
             {note.type === 'noteAud' && <video width="400" height="250"><source src={note.info.url}/></video>} */}
 
             {todos && <ul> {todos.map((todo, idx) => {
-                return <li key={idx}>{todo.txt}</li>
+                return <li key={idx}>{todo}</li>
             })}
             </ul>
             }

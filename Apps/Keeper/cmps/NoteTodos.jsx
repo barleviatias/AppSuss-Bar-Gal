@@ -41,27 +41,29 @@ export class NoteTodos extends React.Component {
 
     render() {
         const { todos } = this.state
-        if (!todos) return <ul>
-            <li><input type="text" name="txt" placeholder="add new note" onChange={this.handleChange} /></li>
-            <button type="button" onClick={this.addTodo} onClick={this.onAddTodo}></button>
+        if (!todos) return <React.Fragment>
+            <ul>
+                <li><input type="text" name="txt" placeholder="add a new list" onChange={this.handleChange} /></li>
+                <button type="button" onClick={this.addTodo} onClick={this.onAddTodo} ></button>
+            </ul>
             <button classame="keeper-submit-note" type="button" onClick={() => {
                 this.onAddTodo();
                 this.props.onAddNewList(todos);
-                }}>Add Note</button>
-        </ul>
-        return (
+            }}>Add Note</button>
+        </React.Fragment>
+        return <React.Fragment>
             <ul>
                 {todos.map((todo, idx) => {
                     return <li key={idx}>{todo} <button type="button" onClick={() => this.onRemoveTodo(todos, idx)}>X</button></li>
                 })}
-                <li><input type="text" name="txt" placeholder="add new note" onChange={this.handleChange} /></li>
+                <li><input type="text" name="txt" placeholder="add a new list" onChange={this.handleChange} input=""/></li>
                 <button type="button" onClick={this.onAddTodo}>New Todo</button>
-                <button classame="keeper-submit-note" type="button" onClick={() =>{ 
-                    this.onAddTodo();
-                    this.props.onAddNewList(todos);
-                    }}>Add Note</button>
 
             </ul>
-        )
+            <button classame="keeper-submit-note" type="button" onClick={() => {
+                this.onAddTodo();
+                this.props.onAddNewList(todos);
+            }}>Add Note</button>
+        </React.Fragment>
     }
 }

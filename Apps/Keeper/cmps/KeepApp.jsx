@@ -60,17 +60,17 @@ export class KeepApp extends React.Component {
 
     // TODO: fix this fucking proble, how does the todos show in "then" but not in "this.then"?!?!?!?!?!
     onAddNewList = (list) => {
+        console.log('@@@@@', list);
         this.setState(prevState => ({
             note: {
                 ...prevState.note,
-                todos: list.toString()
+                todos: list
             }
-        }))
-        console.log(this);
-        console.log('state notes:',this.state);
+        }),this.onAddNote)
+        // console.log(this);
         
-        this.onAddNote()
-        console.log(list);
+        // this.onAddNote()
+        // console.log(list);
     }
 
 
@@ -79,8 +79,8 @@ export class KeepApp extends React.Component {
     onAddNote = () => {
         event.preventDefault();
         const { note } = this.state;
-        console.log('onAdd note:', note);
-        console.log('onAdd note:', this);
+        console.log('onAddNote not @@@@e:', note);
+        console.log('onAddNote this:', this.state);
         noteService.addNote(note)
             .then(() => {
                 this.loadNotes;
@@ -125,7 +125,7 @@ export class KeepApp extends React.Component {
 
     render() {
         const { notes, visible, note } = this.state
-        const { type } = this.state.note
+        const { type, title} = this.state.note
         const noteStyle = {
             backgroundColor: note.backgroundColor}
         if (!notes) return <div>Loading...</div>
@@ -140,15 +140,14 @@ export class KeepApp extends React.Component {
 
             {/* ----- NEW NOTES INPUT ----- */}
             <form className="keeper-new-note" style={noteStyle}>
-                {!type && <input type="text" name="title" className="keeper-new-title"
+                {!type && <input type="text" name="title" className="keeper-new-title" 
                     onClick={() => this.setInputType('noteTxt')}
-                    onChange={this.handleChange}
                     placeholder="Write a new note" />}
 
                 {type && <input type="text" name="title" className="keeper-new-title"
                     onClick={() => this.setInputType(type)}
                     onChange={this.handleChange}
-                    placeholder="Write a new note" />}
+                    placeholder="title"/>}
 
                 {visible && <React.Fragment>
 
@@ -160,7 +159,7 @@ export class KeepApp extends React.Component {
                     {/* ADD NEW TEXT */}
                     {type === 'noteTxt' && <textarea className="keeper-new-txt"
                         name="txt" id="" cols="30" rows="3"
-                        onChange={this.handleChange}></textarea>}
+                        onChange={this.handleChange} placeholder="add a new note"></textarea>}
 
                     {/* ADD NEW IMAGE */}
                     {type === 'noteImg' && <input type="text" name="url" className="keeper-new-img"
