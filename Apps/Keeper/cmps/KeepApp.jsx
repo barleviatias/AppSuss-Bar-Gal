@@ -4,15 +4,18 @@ import { NoteTodos } from './NoteTodos.jsx'
 import { noteService } from '../services/keep.service.js'
 
 export class KeepApp extends React.Component {
+
     state = {
         notes: null,
         visible: false,
         note: {
             type: null,
             isPinned: false,
-            title: null,
-            txt: null,
-            urc: null
+            title: '',
+            txt: '',
+            url: '',
+            todos: '',
+            backgroundColor: 'white',
         }
     }
 
@@ -20,7 +23,7 @@ export class KeepApp extends React.Component {
         this.loadNotes()
     }
 
-    
+
 
     // SETING STATE FUNCTIONS
 
@@ -55,17 +58,35 @@ export class KeepApp extends React.Component {
     }
 
 
+    // TODO: fix this fucking proble, how does the todos show in "then" but not in "this.then"?!?!?!?!?!
+    onAddNewList = (list) => {
+        this.setState(prevState => ({
+            note: {
+                ...prevState.note,
+                todos: list.toString()
+            }
+        }))
+        console.log(this);
+        console.log('state notes:',this.state);
+        
+        this.onAddNote()
+        console.log(list);
+    }
+
+
     // NOTE ADD / REMOVE / EDIT
 
-    onAddNote = (ev) => {
-        ev.preventDefault();
+    onAddNote = () => {
+        event.preventDefault();
         const { note } = this.state;
-        // console.log(note);
+        console.log('onAdd note:', note);
+        console.log('onAdd note:', this);
         noteService.addNote(note)
-            .then(noteAded => {
+            .then(() => {
                 this.loadNotes;
-                this.setState({
-                    // visible: false,
+                this.setState(state => ({
+                    ...state,
+                    visible: false,
                     note: {
                         type: null,
                         isPinned: false,
@@ -73,9 +94,9 @@ export class KeepApp extends React.Component {
                         title: '',
                         txt: '',
                         url: '',
+                        todos: '',
                     }
-                })
-
+                }))
             })
             .catch(() => {
                 this.setState({ visible: false })
@@ -93,20 +114,20 @@ export class KeepApp extends React.Component {
     handleChange = ({ target }) => {
         const field = target.name;
         const value = (target.type === 'number') ? +target.value : target.value;
-        console.log(value);
         this.setState(prevState => ({
             note: {
-                [field]: value,
                 ...prevState.note,
+                [field]: value,
             }
         }))
-        // console.log(this.state.note);
     }
+
 
     render() {
         const { notes, visible, note } = this.state
         const { type } = this.state.note
-
+        const noteStyle = {
+            backgroundColor: note.backgroundColor}
         if (!notes) return <div>Loading...</div>
 
         return (<section className="keeper-container">
@@ -115,16 +136,19 @@ export class KeepApp extends React.Component {
                 {/* TODO: add filter note cmp */}
             </header>
 
-            {/* ---- NEW NOTES INPUT ---- */}
-            <form className="keeper-new-note">
+            {/* ////TODO: move input to component\\\\ */}
+
+            {/* ----- NEW NOTES INPUT ----- */}
+            <form className="keeper-new-note" style={noteStyle}>
                 {!type && <input type="text" name="title" className="keeper-new-title"
                     onClick={() => this.setInputType('noteTxt')}
                     onChange={this.handleChange}
-                    placeholder="Write a new note"/>}
+                    placeholder="Write a new note" />}
+
                 {type && <input type="text" name="title" className="keeper-new-title"
                     onClick={() => this.setInputType(type)}
                     onChange={this.handleChange}
-                    placeholder="Write a new note"/>}
+                    placeholder="Write a new note" />}
 
                 {visible && <React.Fragment>
 
@@ -143,16 +167,19 @@ export class KeepApp extends React.Component {
                         onChange={this.handleChange} placeholder="add image link" />}
 
                     {/* ADD NEW VIDEO */}
-                    {type === 'noteVid' && <input placeholder="add video link" />}
+                    {type === 'noteVid' && <input type="text" name="url" className="keeper-new-img"
+                        onChange={this.handleChange} placeholder="add video link" />}
 
                     {/* ADD NEW AUDIO */}
                     {type === 'noteAud' && <input placeholder="add audio link" />}
 
-                </React.Fragment>}
-                {/* ADD NEW TODOS */}
-                {type === 'noteTodos' && <NoteTodos note={note} />}
+                    {/* ADD NEW TODOS */}
+                    {type === 'noteTodos' && <NoteTodos onAddNewList={this.onAddNewList} />}
 
-                <button classame="keeper-submit-note" type="submit" onClick={this.onAddNote}>Add Note</button>
+                    {type !== 'noteTodos' && <button classame="keeper-submit-note" type="submit" onClick={this.onAddNote}>Add Note</button>}
+
+                </React.Fragment>}
+
 
                 {/* KEEPER ADD INPUTS BUTTONS*/}
                 <div className="keeper-btn-inputs">
@@ -186,6 +213,9 @@ export class KeepApp extends React.Component {
                             this.setInputType('noteAud')
                         }}
                         title="add sound">Audio</button>
+
+<input type="color" name="backgroundColor" className="keeper-new-img" onChange={this.handleChange}/>
+                  
                 </div>
             </form>
 

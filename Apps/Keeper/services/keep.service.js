@@ -35,7 +35,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         info: {
             title: 'buy milk',
             style: {
-                backgroundColor: "#00d"
+                backgroundColor: "yellow"
             }
         }
     }, {
@@ -47,7 +47,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
             title: "Me playing Mi",
             url: "https://www.itsme.co.il/wp-content/uploads/2019/02/itsme_smartphone-1.png",
             style: {
-                backgroundColor: "#00d"
+                backgroundColor: "gray"
             }
         }
     }, {
@@ -64,7 +64,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
                 { txt: "Do this", doneAt: 187111111 }
             ],
             style: {
-                backgroundColor: "#00d"
+                backgroundColor: "white"
             }
         }
     }, {
@@ -77,7 +77,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
             txt: 'wowo',
             url: 'https://mymodernmet.com/wp/wp-content/uploads/2020/07/dan-zafra-adirondacks-4.jpg',
             style: {
-                backgroundColor: "#00d"
+                backgroundColor: "white"
             }
         }
     }
@@ -88,8 +88,11 @@ function query() {
 }
 
 function addNote(note) {
-    if (!note.isPinned && !note.title && !note.txt && !note.url) return Promise.reject('no note');
+    if (!note.isPinned && !note.title && !note.txt && !note.url && !note.todos) return Promise.reject('no note');
     console.log(note);
+    let todos;
+    // if(note.todos) todos = note.todos.split(',');
+    // else todos = null;
     const newNote = {
         id: utilService.makeId(),
         type: note.type,
@@ -99,7 +102,10 @@ function addNote(note) {
             title: note.title,
             txt: note.txt,
             url: note.url,
-            todo: note.todo
+            todos: todos,
+            style: {
+                backgroundColor: note.backgroundColor
+            }
         }
     }
 
@@ -127,15 +133,16 @@ function pinNote(noteId) {
 }
 
 function addTodo(txt, todos) {
-    const newArray = todos;
-    newArray.push(txt);
-    return newArray
+    if (!txt) return todos;
+    const newTodos = todos;
+    newTodos.push(txt);
+    return newTodos
 }
 
 function removeTodo(todos, idx) {
-    const newArray = todos;
-    newArray.splice(idx, 1);
-    return newArray
+    const newTodos = todos;
+    newTodos.splice(idx, 1);
+    return newTodos
 }
 
 function _getNoteIndx(noteId) {

@@ -1,4 +1,7 @@
 
+/* TODO: DESIGN, RESPONSIVE, SEPERATE COMPONENTS DESIGN TO DIFFRENT FILES */
+
+
 .keeper-container{
     display: flex;
     flex-direction: column;
@@ -6,6 +9,11 @@
     align-items: center;
     align-content: center;
     margin: 0 auto;
+}
+
+.keeper-container  button{
+    border: 1px solid gray;
+    width: fit-content;  
 }
 
 .keeper-new-note{
