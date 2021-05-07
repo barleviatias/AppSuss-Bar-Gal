@@ -90,7 +90,7 @@ function query() {
 function addNote(note) {
     if (!note.isPinned && !note.title && !note.txt && !note.url && !note.todos) return Promise.reject('no note');
     console.log(note);
-    let todos;
+    // let todos;
     // if(note.todos) todos = note.todos.split(',');
     // else todos = null;
     const newNote = {
@@ -102,7 +102,7 @@ function addNote(note) {
             title: note.title,
             txt: note.txt,
             url: note.url,
-            todos: todos,
+            todos: note.todos,
             style: {
                 backgroundColor: note.backgroundColor
             }

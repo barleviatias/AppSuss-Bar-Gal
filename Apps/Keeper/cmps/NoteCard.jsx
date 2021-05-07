@@ -15,10 +15,10 @@ export function NoteCard({ note, onRemoveNote, onPinNote }) {
 
             <p>{txt}</p>
 
-            {note.type = 'noteImg' && <img src={url} alt={title} />}
-            
-            {/* {note.type = 'noteVid' && <iframe src={note.info.url}></iframe>}
-            {note.type = 'noteAud' && <iframe src={note.info.url}></iframe>} */}
+            {note.type === 'noteImg' && <img src={url} alt={title} />}
+
+            {/* {note.type === 'notevid' && <video width="400" height="250"><source src={note.info.url}/></video>}
+            {note.type === 'noteAud' && <video width="400" height="250"><source src={note.info.url}/></video>} */}
 
             {todos && <ul> {todos.map((todo, idx) => {
                 return <li key={idx}>{todo.txt}</li>
