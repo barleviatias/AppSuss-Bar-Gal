@@ -6,18 +6,26 @@ import { EmailCompose } from '../cmps/EmailCompose.jsx';
 export class EmailApp extends React.Component {
 	state = {
 		emails: null,
+        filterBy: {
+            subject: '',
+            body: '',
+            ctg: '',
+            keyword:''
+          }
 	};
 	componentDidMount() {
 		console.log('mounting');
 		this.loadEmail();
+        console.log(this.state.filterBy);
 		emailService.query();
 	}
 	loadEmail = () => {
 		// console.log('loademail');
-		emailService.query().then((emails) => {
+		emailService.query(this.state.filterBy).then((emails) => {
 			this.setState({ emails });
 			// console.log(this.state.emails);
 		});
+        console.log(this.state.filterBy);
 	};
 	toggleEmail = (idx) => {
 		emailService.toggleRead(idx);
@@ -32,13 +40,16 @@ export class EmailApp extends React.Component {
 			this.loadEmail();
 		});
 	};
+    onSetFilter = (filterBy) => {
+		this.setState({ filterBy }, this.loadEmail);
+	};
 	render() {
 		const { emails } = this.state;
 		if (!emails) return <div>Loading...</div>;
 		// console.log(emails);
 		return (
 			<section className="email-container ">
-				<h1>email APP</h1>
+				
 				<div className="email-app container flex">
 					<div className="inbox">
 						<h2>inbox!</h2>
@@ -51,6 +62,7 @@ export class EmailApp extends React.Component {
 										onRemoveEmail={this.onRemoveEmail}
 										toggleEmail={this.toggleEmail}
 										toggleStar={this.toggleStar}
+                                        onSetFilter={this.onSetFilter}
 										emails={emails}
 									/>
 								)}
