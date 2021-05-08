@@ -2,14 +2,16 @@
     flex-direction: column;
     /* align-items:center; */
     /* text-align: center; */
+    margin-top: 50px;
 }
 .btn-sidebar{
     /* width: 80px; */
+    display: flex;
     margin-top: 10px;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     box-shadow: rgba(0, 0, 0, 0.438) 0px 0px 3px 0px;
-    padding: 10px 60px;
+    padding: 10px 25px;
     border-radius: 2rem;
 }
 .material-icons.add{
@@ -25,7 +27,13 @@
 }
 .btn-compose{
     align-items: center;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bold;
     box-shadow: rgba(0, 0, 0, 0.438) 0px 0px 3px 0px;
+}
+a.add-nav{
+    display: flex;
+    /* justify-content: center; */
+    /* align-content: flex-start; */
+    align-items: center;
 }

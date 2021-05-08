@@ -9,12 +9,65 @@ export const emailService = {
 	getNextEmailId,
 	toggleStar,
 	toggleReadOn,
-	getPrevEmailId
+	getPrevEmailId,
+	getReadStatistics
 };
+var mailFakeData=[
+	{
+		id: utilService.makeId(),
+		subject: 'Hello Coding Academy ',
+		body: 'Dear Bar,thank you for join our march 2021 course we wish you good luck                                                       p.s say bye bye to all your friends and social life',
+		isRead: Math.random() > 0.5,
+		sentAt: Date.now(),
+		isStarred: Math.random() > 0.5,
+		isDraft: Math.random() > 0.5,
+	},
+	{
+		id: utilService.makeId(),
+		subject: 'Your trial is end in 1 week',
+		body: 'Hello you trial is going to end soon if you dont respond we gona take bills from you forever',
+		isRead: Math.random() > 0.5,
+		sentAt: Date.now(),
+		isStarred: Math.random() > 0.5,
+		isDraft: Math.random() > 0.5,
+	},
+	{
+		id: utilService.makeId(),
+		subject: 'Congrats you won 1 Milion$ ',
+		body: 'just enter you credit card and we transer the przie to your account!',
+		isRead: Math.random() > 0.5,
+		sentAt: Date.now(),
+		isStarred: Math.random() > 0.5,
+		isDraft: Math.random() > 0.5,
+	},
+	{
+		id: utilService.makeId(),
+		subject: 'Newslater from dump application that you dont remember you subscribe',
+		body: 'if you dont want to get this newslater anymore just click here and nothing gona change mohaha',
+		isRead: Math.random() > 0.5,
+		sentAt: Date.now(),
+		isStarred: Math.random() > 0.5,
+		isDraft: Math.random() > 0.5,
+	},
+	{
+		id: utilService.makeId(),
+		subject: 'Google Job interview for fullstack position',
+		body: 'hey we see youre git and we love your work we loved to invite you for an interview',
+		isRead: Math.random() > 0.5,
+		sentAt: Date.now(),
+		isStarred: Math.random() > 0.5,
+		isDraft: Math.random() > 0.5,
+	},
+
+
+]
 const KEY = 'emailsDB';
-var gEmails = storageService.loadFromStorage(KEY) || [];
+var gEmails = storageService.loadFromStorage(KEY) || mailFakeData;
 // const filterEmails
-_createMails();
+// _createMails();
+if(gEmails.length===0){
+	gEmails=mailFakeData
+}
 
 _saveEmailsToStorage();
 function query(filterBy) {
@@ -38,7 +91,6 @@ function query(filterBy) {
             const filterStarEmails = gEmails.filter((email) => !email.isRead);
 			return Promise.resolve(filterStarEmails);
         }
-		console.log(filterEmails);
 		return Promise.resolve(filterEmails);
 	}
 }
@@ -134,6 +186,12 @@ function _createMails() {
 			_createMail();
 		}
 	}
+}
+function getReadStatistics() {
+    var readMails = gEmails.filter((mail) => {
+        return mail.isRead === true
+    })
+    return Math.floor((readMails.length / gEmails.length) * 100)
 }
 function _loadMailsFromStorage() {
 	return storageService.loadFromStorage(KEY);

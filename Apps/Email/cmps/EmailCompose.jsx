@@ -30,6 +30,8 @@ export class EmailCompose extends React.Component {
 	render() {
 		const { to, copy, subject, body } = this.state.mail;
 		return (
+			<section className="compose-container flex">
+
 			<form onSubmit={this.sendMail} className="compose-mail flex">
 				<label htmlFor="">To</label>
 				<input
@@ -37,7 +39,7 @@ export class EmailCompose extends React.Component {
 					type="text"
 					value={to.mail}
 					onChange={this.handleChange}
-				/>
+					/>
 
 				<label htmlFor="">Copy</label>
 				<input
@@ -45,7 +47,7 @@ export class EmailCompose extends React.Component {
 					type="text"
 					value={copy}
 					onChange={this.handleChange}
-				/>
+					/>
 
 				<label htmlFor="">Subject</label>
 				<input
@@ -55,7 +57,7 @@ export class EmailCompose extends React.Component {
                     required
 					onChange={this.handleChange}
                     
-				/>
+					/>
 				<label htmlFor="">message</label>
 				<textarea name="body" value={body} style={{resize: 'none'}} onChange={this.handleChange} />
 				<div className="btns-compose flex">
@@ -67,6 +69,7 @@ export class EmailCompose extends React.Component {
 					</button>
 				</div>
 			</form>
+					</section>
 		);
 	}
 }

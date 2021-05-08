@@ -28,7 +28,7 @@ export class EmailFilter extends React.Component {
 
 			<form className="email-filter" onSubmit={this.onFilter}>
 				
-					<span class="material-icons">search</span>
+					<span className="material-icons search">search</span>
 				<input
 					type="text"
 					id="byName"

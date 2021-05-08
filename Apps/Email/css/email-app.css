@@ -1,6 +1,7 @@
 @import url(../css/email-sidebar.css);
 @import url(../css/email-preview.css);
 @import url(../css/email-details.css);
+@import url(../css/email-compose.css);
 @import url(../css/email-filter.css);
 button{
     border:0;
@@ -16,7 +17,7 @@ button{
 }
 .email-panel{
     margin-right: 20px;
-    width: 20vw;
+    /* width: 20vw; */
 }
 .email-card{
     box-shadow: rgba(0, 0, 0, 0.438) 0px 0px 3px 0px;
@@ -55,7 +56,6 @@ button{
     border-left: 0;
 }
 .btns-compose{
-    
     justify-content: space-around;
 }
 .material-icons{

@@ -10,3 +10,7 @@
     box-shadow: rgba(0, 0, 0, 0.438) 0px 0px 3px 0px;
     border: 0;
 }
+.material-icons.search{
+    position: absolute;
+    margin-left: -32px;
+}

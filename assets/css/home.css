@@ -23,20 +23,25 @@
 	font-size: 63px;
 }
 .content p {
-	font-size: 15px;
+	font-size: 20px;
 }
 .content button {
+	display: flex;
+	align-items: center;
 	border-radius: 2rem;
 	border: 0;
 	background-color: #1e3595;
-	padding: 15px 30px;
+	padding: 15px 10px;
 	color: whitesmoke;
 	transition: 0.9ms;
+	margin: 10px;
+	
 }
 .content button:hover {
 	/* border-radius: 2rem;
     border :0; */
 	background-color: #ffb806;
-	padding: 15px 32px;
-	color: whitesmoke;
+	color:#1e3595;
+	animation: tada;
+    animation-duration: 0.8s;
 }
