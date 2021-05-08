@@ -6,8 +6,12 @@
     box-shadow: rgba(0, 0, 0, 0.438) 0px 0px 3px 0px;
     border-radius: 2rem;
     /* padding: 50px; */
-    margin: 50px;
+    margin-top: 50px;
+    margin-right: 5px;
+    margin-bottom: 50px;
+    margin-left: 5px;
     justify-content: center;
     /* align-items: center; */
     height: 50vh;
+    padding: 10px;
 }

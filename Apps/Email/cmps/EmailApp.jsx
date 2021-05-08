@@ -101,7 +101,7 @@ export class EmailApp extends React.Component {
 						<button className="btn-sidebar" onClick={this.onFilterStar}>
 							<span className="material-icons fa-star">star</span>Favorites
 						</button>
-						<button className="btn-sidebar">{this.onGetReadStatistics()}% Read</button>
+						<button className="btn-reads">{this.onGetReadStatistics()}% Read</button>
 					</div>
 				</div>
 			</section>

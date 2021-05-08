@@ -75,8 +75,9 @@ button{
     animation: heartBeat;
     animation-duration: 0.8s; 
 }
-.material-icons.fa-star{
-    color:#ffca3a;
+.material-icons.fa-star:hover{
+    animation: heartBeat;
+    animation-duration: 0.8s; 
 }
 .material-icons.fa-trash:hover{
     animation: tada;
