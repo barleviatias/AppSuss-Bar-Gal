@@ -59,7 +59,7 @@ export class EmailCompose extends React.Component {
                     
 					/>
 				<label htmlFor="">message</label>
-				<textarea name="body" value={body} style={{resize: 'none'}} onChange={this.handleChange} />
+				<textarea name="body" value={body} style={{resize: 'none'}} rows="4" cols="50" onChange={this.handleChange} />
 				<div className="btns-compose flex">
 					<button onClick={this.goBack}>
 						<span className="material-icons">clear</span>
