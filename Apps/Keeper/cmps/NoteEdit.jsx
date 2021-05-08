@@ -5,21 +5,22 @@ export class EditCard extends React.Component {
     }
 
     render() {
-        const { note, onPinNote, onRemoveNote, handleChange } = this.props
-        // console.log(note);
+        const { note, onPinNote, onRemoveNote, handleChange, onNoteInspect } = this.props
 
         return <nav>
 
-            <button>edit</button>
-            
-            <input type="color" name="backgroundColor" className="keeper-new-img" onChange={handleChange} />
+            <button >edit</button>
+            {<button  onClick={onNoteInspect}>inspect</button>}
+            <input type="color" name="backgroundColor" className="note-color-btn" onChange={handleChange} />
+
             {/* TODO: use email to send note */}
             <button>send</button>
-{/* PIN NOTE */}
-            {note.isPinned && <button className="pinned" onClick={() => onPinNote(note.id)}>📌</button>}
-            {!note.isPinned && <button className="not-pinned" onClick={() => onPinNote(note.id)}>🔘</button>}
 
-            <button onClick={() => onRemoveNote(note.id)}>remove</button>
+            {/* PIN NOTE */}
+            {note.isPinned && <button className="note-pinned" onClick={() => onPinNote(note.id)}>📌</button>}
+            {!note.isPinned && <button className="note-pinned" onClick={() => onPinNote(note.id)}>🔘</button>}
+            {/* REMOVE NOTE */}
+            <button className="note-remove-btn" onClick={() => onRemoveNote(note.id)}>remove</button>
 
         </nav>
     }

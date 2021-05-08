@@ -20,6 +20,7 @@ export class NoteTodos extends React.Component {
         }))
     }
 
+    
     onAddTodo = () => {
         event.preventDefault();
         const { txt, todos } = this.state
@@ -30,13 +31,12 @@ export class NoteTodos extends React.Component {
         })
     }
 
+
     onRemoveTodo = (todos, idx) => {
         event.preventDefault();
         const newTodos = noteService.removeTodo(todos, idx)
         this.setState({ todos: newTodos })
     }
-
-
 
 
     render() {

@@ -41,14 +41,20 @@ export class KeepApp extends React.Component {
             })
     }
 
-    setNewNoteState(type, bollean) {
+    setNewNoteState =(type, val) => {
         this.setState(prevState => ({
             note: {
                 ...prevState.note,
-                [type]: bollean
+                [type]: val
             }
         }))
+        
     }
+    
+        // setAppState = (type, bollean) => {
+        //     this.setState({[type]: bollean})
+        // }
+
 
     setInputType(type) {
         this.setState({
@@ -115,8 +121,8 @@ export class KeepApp extends React.Component {
 
 
     render() {
-        const { notes, visible, note } = this.state
-        const { type, title } = this.state.note
+        const { notes, visible, note, activeNote } = this.state
+        const { type } = this.state.note
         const noteStyle = {
             backgroundColor: note.backgroundColor
         }
@@ -131,6 +137,8 @@ export class KeepApp extends React.Component {
             {/* ////TODO: move input to component\\\\ */}
             {/* ----- NEW NOTES INPUT ----- */}
             <form className="keeper-new-note" style={noteStyle}>
+
+                {/* ADD NEW TITLE */}
                 {!type && <input type="text" name="title" className="keeper-new-title"
                     onClick={() => this.setInputType('noteTxt')}
                     placeholder="Write a new note" />}
@@ -213,6 +221,7 @@ export class KeepApp extends React.Component {
             {/* DISPLAY NOTES */}
             <main className="keeper-notes-container">
                 <NoteList notes={notes}
+                setNewNoteState={this.setNewNoteState}
                     onRemoveNote={this.onRemoveNote}
                     onPinNote={this.onPinNote} />
             </main>

@@ -9,7 +9,8 @@ export const noteService = {
     removeNote,
     pinNote,
     addTodo,
-    removeTodo
+    removeTodo,
+    editNote
 }
 
 const KEY = 'notes-keeper';
@@ -57,8 +58,6 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         type: "noteList",
         info: {
             title: "How was it:",
-            // txt: '',
-            // url: '',
             todos: ["Do Todo List", "Do this"],
             style: {
                 backgroundColor: "white"
@@ -100,8 +99,7 @@ function addNote(note) {
                 backgroundColor: note.backgroundColor
             }
         }
-    }
-
+}
     gNotes.unshift(newNote);
     _saveNotesToStorage();
     return Promise.resolve(newNote)
@@ -138,12 +136,20 @@ function removeTodo(todos, idx) {
     return newTodos
 }
 
+function editNote() {
+console.log('edit!');
+}
+
+
+
+
+
+
 function _getNoteIndx(noteId) {
     return gNotes.findIndex(note => {
         return noteId === note.id
     })
 }
-
 
 function _saveNotesToStorage() {
     storageService.saveToStorage(KEY, gNotes)
