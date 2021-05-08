@@ -27,7 +27,7 @@ export class NoteColor extends React.Component {
 
         return (
             <React.Fragment>
-                <button title="Change note color" onClick={this.onPaletteClick} className="note-color-btn material-icons">palette</button>
+                <button type="button" title="Change note color" onClick={this.onPaletteClick} className="note-color-btn material-icons">palette</button>
                 {isColorBoxOpen && <div className="note-color-box">
                     <div onClick={() => this.onColorChange('default')} className="color-circle default"></div>
                     <div onClick={() => this.onColorChange('red')} className="color-circle red"></div>

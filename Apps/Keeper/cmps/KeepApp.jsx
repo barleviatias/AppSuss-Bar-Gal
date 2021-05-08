@@ -2,6 +2,7 @@
 import { NoteList } from './NoteList.jsx'
 import { NoteTodos } from './NoteTodos.jsx'
 import { noteService } from '../services/keep.service.js'
+import { NoteColor } from './NoteColor.jsx'
 
 export class KeepApp extends React.Component {
 
@@ -15,7 +16,7 @@ export class KeepApp extends React.Component {
             txt: '',
             url: '',
             todos: '',
-            backgroundColor: 'white',
+            backgroundColor: 'default',
         }
     }
 
@@ -51,12 +52,22 @@ export class KeepApp extends React.Component {
 
     }
 
-
     setInputType(type) {
         this.setState({
             visible: true,
             note: { type, }
         })
+    }
+
+    setBackgroundColor = (color) => {
+        this.setState(prevState => ({
+            ...prevState,
+            note: {
+                ...prevState.note,
+                backgroundColor: color,
+
+            }
+        }))
     }
 
 
@@ -117,11 +128,9 @@ export class KeepApp extends React.Component {
 
 
     render() {
-        const { notes, visible, note, activeNote } = this.state
-        const { type } = this.state.note
-        const noteStyle = {
-            backgroundColor: note.backgroundColor
-        }
+        const { notes, visible, note } = this.state
+        const { type, backgroundColor } = this.state.note
+        console.log(`keeper-new-note ${backgroundColor}`);
         if (!notes) return <div>Loading...</div>
 
         return (<section className="keeper-container">
@@ -132,7 +141,7 @@ export class KeepApp extends React.Component {
 
             {/* ////TODO: move input to component\\\\ */}
             {/* ----- NEW NOTES INPUT ----- */}
-            <form className="keeper-new-note" style={noteStyle}>
+            <form className={`keeper-new-note ${backgroundColor}`}>
 
                 <div className="keeper-input-container">
 
@@ -148,11 +157,9 @@ export class KeepApp extends React.Component {
 
                     {visible && <React.Fragment>
 
-
-
                         {/* ADD NEW TEXT */}
                         {type === 'noteTxt' && <textarea className="keeper-new-txt"
-                            name="txt" id=""
+                            name="txt" rows="3"
                             onChange={this.handleChange} placeholder="add a new note"></textarea>}
 
                         {/* ADD NEW IMAGE */}
@@ -165,39 +172,45 @@ export class KeepApp extends React.Component {
 
                         {/* ADD NEW TODOS */}
                         {type === 'noteTodos' && <NoteTodos onAddNewList={this.onAddNewList} />}
-                        {type !== 'noteTodos' && <button classame="keeper-submit-note" type="submit" onClick={this.onAddNote}>Add Note</button>}
 
+                        {/* ADD NEW NOTE BUTTON */}
+                        {type !== 'noteTodos' && <button classame="keeper-btn-submit" type="submit" onClick={this.onAddNote}>Add Note</button>}
                     </React.Fragment>}
 
                 </div>
 
                 {/* KEEPER ADD INPUTS BUTTONS*/}
                 <div className="keeper-btn-inputs">
+                    {/* NEW TEXT BUTTON */}
                     <button type="button" className="keeper-txt-btn material-icons"
                         onClick={() => {
                             this.setInputType('noteTxt')
                         }}
                         title="add text">text_format</button>
 
+                    {/* NEW IMAGE BUTTON */}
                     <button type="button" className="keeper-img-btn material-icons"
                         onClick={() => { this.setInputType('noteImg') }}
                         title="add image material-icons">photo</button>
 
+                    {/* NEW TODOS BUTTON */}
                     <button type="button" title=" Add-List" className="keeper-list-btn material-icons"
                         onClick={() => { this.setInputType('noteTodos'); }}
                         title="add list">list
                     </button>
 
+                    {/* NEW VIDEO BUTTON */}
                     <button type="button" className="keeper-vid-btn material-icons"
                         onClick={() => { this.setInputType('noteVid') }}
                         title="add video">slideshow
                         </button>
 
-                    <input type="color" name="backgroundColor" className="keeper-new-img" onChange={this.handleChange} />
-
                     {/* PIN NEW NOTE */}
                     {!note.isPinned && <button type="button" className="new-note-pin unpinned material-icons" onClick={() => this.setNewNoteState('isPinned', true)}>push_pin</button>}
                     {note.isPinned && <button type="button" className="new-note-pin unpinned material-icons" onClick={() => this.setNewNoteState('isPinned', false)}>push_pin</button>}
+
+                    {/* SET COLOR BUTTON */}
+                    <NoteColor setBackgroundColor={this.setBackgroundColor} />
 
                 </div>
             </form>

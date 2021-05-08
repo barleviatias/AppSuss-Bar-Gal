@@ -1,8 +1,6 @@
-
 /* TODO: DESIGN, RESPONSIVE, SEPERATE COMPONENTS DESIGN TO DIFFRENT FILES */
 
-
-.keeper-container{
+.keeper-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,64 +9,78 @@
     margin: 0 auto;
 }
 
-.keeper-container  button{
-    width: fit-content;  
+.keeper-container input, textarea {
+    background-color: inherit;
+    border: none;
+}
+
+.keeper-container button {
+    width: fit-content;
 }
 
 .pinned {
     color: red;
 }
+
 .unpinned {
     color: gray;
 }
 
-
 .color-circle {
     padding: 15px;
+    height: 15px;
+    width: 15px;
     border-radius: 50%;
+    border: 1px black solid;
+    margin: 0 auto;
+}
+
+.color-circle:hover {
+    box-shadow: rgb(62 51 51) 0px 1px 10px 1px;
+    cursor: pointer;
 }
 
 .default {
     background-color: white;
 }
-.red{
+
+.red {
     background-color: #f28b82;
 }
 
-.orange{
+.orange {
     background-color: #fbbc04;
 }
-.yellow{
+
+.yellow {
     background-color: #fff475;
 }
-.green{
+
+.green {
     background-color: #ccff90;
 }
-.blue{
+
+.blue {
     background-color: #cbf0f8;
 }
-.purple{
+
+.purple {
     background-color: #d7aefb;
 }
-.brown{
+
+.brown {
     background-color: #e6c9a8;
 }
-.gray{
+
+.gray {
     background-color: #e8eaed;
 }
 
-.note-color-box{
+.note-color-box {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     position: relative;
     top: 30px;
-    right: 50px;
-
+    /* right: 50px; */
 }
-
-
-
-
-
-
