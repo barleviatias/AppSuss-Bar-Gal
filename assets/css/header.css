@@ -54,3 +54,10 @@
 .page-header li>*:hover:not(.active) {
     color: #57578b;
 }
+@media(max-width: 600px){
+    .logo-container{
+        display: flex;
+        margin: 10px;
+        width: 50%;
+    }
+}
