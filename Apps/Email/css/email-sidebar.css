@@ -1,0 +1,31 @@
+.email-panel{
+    flex-direction: column;
+    /* align-items:center; */
+    /* text-align: center; */
+}
+.btn-sidebar{
+    /* width: 80px; */
+    margin-top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.438) 0px 0px 3px 0px;
+    padding: 10px 60px;
+    border-radius: 2rem;
+}
+.material-icons.add{
+    font-size: 52px;
+    color:  #1e3595;
+    
+}
+.material-icons.add:hover{
+    font-size: 52px;
+    color: #ffb806;
+    animation: heartBeat;
+    animation-duration: 0.8s; 
+}
+.btn-compose{
+    align-items: center;
+    font-size: 32px;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.438) 0px 0px 3px 0px;
+}

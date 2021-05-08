@@ -27,23 +27,46 @@ export class EmailDetails extends React.Component {
 	isRead = () => {
 		emailService.toggleReadOn(this.state.mail.id);
 	};
+	onRemoveEmail = (idx) => {
+		emailService.removeEmail(idx).then(() => {
+			this.loadEmail();
+		});
+	};
 	render() {
 		console.log('render mail');
 		const { mail } = this.state;
 		if (!mail) return <div>Loading...</div>;
 		this.isRead();
 		return (
-			<main className="mail-details">
-				<h1>{mail.subject}</h1>
-				<p>{mail.body}</p>
-
-				<Link to={`/mail/${emailService.getNextEmailId(mail.id)}`}>
-					Next email
-				</Link>
-				<button onClick={this.goBack}>
-					<span className="material-icons">arrow_back_ios</span>
+			<main className="mail-details-card">
+				<button className="email-close" onClick={this.goBack}>
+					<span className="material-icons close">close</span>
 					{/* <span class="material-icons">star</span> */}
 				</button>
+				<h3>subject: {mail.subject}</h3>
+				{/* <p>from {mail.from}</p> */}
+				<p>{mail.body}</p>
+				<div className="details-btns flex">
+					<button className="details-btn">
+
+					<Link to={`/mail/${emailService.getPrevEmailId(mail.id)}`}>
+						previus email
+					</Link>
+					</button>
+					<button
+						onClick={() => {
+							this.onRemoveEmail(mail.id);
+						}}
+					>
+						<span className="material-icons fa-trash">delete</span>
+					</button>
+					<button className="details-btn">
+
+					<Link to={`/mail/${emailService.getNextEmailId(mail.id)}`}>
+						Next email
+					</Link>
+					</button>
+				</div>
 			</main>
 		);
 	}

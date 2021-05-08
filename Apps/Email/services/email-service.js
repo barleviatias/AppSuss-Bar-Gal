@@ -9,9 +9,11 @@ export const emailService = {
 	getNextEmailId,
 	toggleStar,
 	toggleReadOn,
+	getPrevEmailId
 };
 const KEY = 'emailsDB';
 var gEmails = storageService.loadFromStorage(KEY) || [];
+// const filterEmails
 _createMails();
 
 _saveEmailsToStorage();
@@ -19,15 +21,26 @@ function query(filterBy) {
 	if (!filterBy) {
 		_saveEmailsToStorage();
 		return Promise.resolve(gEmails);
-	}
+	} else {
+		var { keyword, isStarred, isRead } = filterBy;
 
-        var { keyword,title, date, isStared, isRead } = filterBy
-        const filterEmails=gEmails.filter(email=>{
-            return email.subject.includes(keyword)|| email.body.includes(keyword)
-        })
-        console.log(filterEmails);
-        return Promise.resolve(filterEmails)
-    
+		let filterEmails = gEmails.filter((email) => {
+			return email.subject.includes(keyword) || email.body.includes(keyword);
+		});
+		if (isRead === true) {
+			const filterReadEmails = gEmails.filter((email) => email.isRead);
+			return Promise.resolve(filterReadEmails);
+		} else if (isStarred === true) {
+			const filterStarEmails = gEmails.filter((email) => email.isStarred);
+			return Promise.resolve(filterStarEmails);
+		}
+        else if(isRead === false){
+            const filterStarEmails = gEmails.filter((email) => !email.isRead);
+			return Promise.resolve(filterStarEmails);
+        }
+		console.log(filterEmails);
+		return Promise.resolve(filterEmails);
+	}
 }
 
 function getEmailById(id) {
@@ -43,6 +56,13 @@ function getNextEmailId(emailId) {
 	nextEmailIdx = nextEmailIdx === gEmails.length ? 0 : nextEmailIdx;
 	console.log(nextEmailIdx);
 	return gEmails[nextEmailIdx].id;
+}
+function getPrevEmailId(emailId) {
+	const emailIdx = gEmails.findIndex((email) => email.id === emailId);
+	var prevEmailIdx = emailIdx - 1;
+	prevEmailIdx = prevEmailIdx < 0 ? 0 : prevEmailIdx;
+	console.log(prevEmailIdx);
+	return gEmails[prevEmailIdx].id;
 }
 function toggleRead(idx) {
 	return Promise.resolve(
