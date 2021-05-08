@@ -30,9 +30,7 @@ export class AppHeader extends React.Component {
 									Home
 								</NavLink>
 							</li>
-							<li>
-								<NavLink to="/book">Book</NavLink>
-							</li>
+						
 							<li>
 								<NavLink to="/keep">Note Keeper</NavLink>
 							</li>
