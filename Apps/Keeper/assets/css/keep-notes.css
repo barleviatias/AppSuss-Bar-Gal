@@ -7,22 +7,26 @@
     margin: 0 auto;
 }
 
-.notes-pinned{
-    display: flex;
-    flex-wrap: wrap;
-    margin-block-end: 1rem;
+.notes-pinned, .notes-not-pinned{
+
+    column-count: 3;
+    column-fill: balance;
+    column-width: 240px;
+    margin-block: 2rem;
 }
 
 .notes-not-pinned{
-    display: flex;
-    flex-wrap: wrap;
+    padding-block-end: 20px;
 }
 
+
 .note-card {
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    page-break-before: avoid;
     display: flex;
     flex-flow: column;
-    background-color: azure;
-    border: gray 2px solid;
+    border-radius: 1em;
     height: fit-content;
     padding: 2rem;
     max-width: 25vw;
@@ -43,3 +47,17 @@
     margin: 0 auto;
 
 }
+
+.note-actions-btns{
+    display: flex;
+    align-self: center;
+    margin-block-start: 1.5rem;
+}
+
+.note-actions-btns >* {
+    width: 2rem;
+    height: 2rem;
+}
+/* .note-actions-btns >*:not(:last-child){
+margin-inline-end: 5px;
+} */

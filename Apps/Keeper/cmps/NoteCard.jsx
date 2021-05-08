@@ -1,5 +1,6 @@
 
 import { noteService } from '../services/keep.service.js'
+import { NoteColor } from './NoteColor.jsx'
 
 
 export class NoteCard extends React.Component {
@@ -45,7 +46,6 @@ export class NoteCard extends React.Component {
     }
 
 
-    // TODO: change features in service
     onEditCard = () => {
         this.setState(prevState => ({
             ...prevState,
@@ -75,12 +75,10 @@ export class NoteCard extends React.Component {
                     [field]: value,
                 }
             }
-
         }))
     }
-    handleChangeStyle = ({ target }) => {
-        const field = target.name;
-        const value = (target.type === 'number') ? +target.value : target.value;
+
+    setBackgroundColor = (color) => {
         this.setState(prevState => ({
             ...prevState,
             note: {
@@ -88,13 +86,11 @@ export class NoteCard extends React.Component {
                 info: {
                     ...prevState.note.info,
                     style: {
-
                         ...prevState.note.info.style,
-                        [field]: value,
+                        backgroundColor: color,
                     }
                 }
             }
-
         }))
     }
 
@@ -105,12 +101,10 @@ export class NoteCard extends React.Component {
         const { isPinned, type } = this.state.note
         const { title, txt, url, todos } = this.state.note.info
         const { backgroundColor } = this.state.note.info.style
-        const noteStyle = {
-            backgroundColor: backgroundColor
-        }
-        console.log(todos);
+        const styleClass = `${noteClass} ${backgroundColor}`
+
         return (
-            <div style={noteStyle} className={noteClass} onBlur={this.submitChange}>
+            <div className={styleClass} onBlur={this.submitChange}>
 
                 {/* NOTE TITLE */}
                 {!isNoteEdit && <h1 onClick={this.onEditCard}>{title}</h1>}
@@ -124,42 +118,44 @@ export class NoteCard extends React.Component {
                         onChange={this.handleChangeInfo}
                         placeholder="add text" value={txt}></textarea>}
                 </React.Fragment>}
+
                 {/* NOTE IMAGE */}
                 {type === 'noteImg' && <React.Fragment>
                     {<img src={url} alt={title} />}
                     {isNoteEdit && <input type="text" name="url" className="note-title-edit"
                         onChange={this.handleChangeInfo} value={url} placeholder="enter a new image link" />}
+                </React.Fragment>}
 
-                        </React.Fragment>}
-                    {/* NOTE TODO */}
-                    <React.Fragment>
-                        {type === 'noteTodos' && <ul> {todos.map((todo, idx) => {
-                            return <li key={idx}>{todo}</li>
-                        })}
-                        </ul>
-                        }
-                    </React.Fragment>
+                {/* NOTE TODO */}
+                <React.Fragment>
+                    {type === 'noteTodos' && <ul> {todos.map((todo, idx) => {
+                        return <li key={idx}>{todo}</li>
+                    })}
+                    </ul>
+                    }
+                </React.Fragment>
 
                 {/* <React.Fragment>
                                         {note.type === 'notevid' && <video width="400" height="250"><source src={note.info.url} /></video>}
                                     </React.Fragment> */}
-
+                {/* NOTE ACTION BUTTONS */}
                 <nav className="note-actions-btns">
 
-                    {/* INSPECT NOTE */}
-                    {isNoteInspect && <button className="note-inspect-btn" onClick={this.onNoteInspect}>zoom-in-outline</button>}
-                    {!isNoteInspect && <button className="note-inspect-btn" onClick={this.onNoteInspect}>focus</button>}
+                    {/* INSPECT NOTE BUTTON*/}
+                    {isNoteInspect && <button title="minimize" className="note-inspect-btn material-icons" onClick={this.onNoteInspect}>zoom_out</button>}
+                    {!isNoteInspect && <button title="expand" className="note-inspect-btn material-icons" onClick={this.onNoteInspect}>zoom_in</button>}
 
-                    <input type="color" name="backgroundColor" className="note-color-btn" onChange={this.handleChangeStyle} />
+                    {/* NOTE COLOR BUTTON */}
+                    <NoteColor setBackgroundColor={this.setBackgroundColor} />
 
                     {/* TODO: use email to send note */}
-                    <button>send</button>
+                    <button className="material-icons">send</button>
 
-                    {/* PIN NOTE */}
-                    {isPinned && <button className="note-pinned material-icons" onClick={() => onPinNote(note.id)}>📌</button>}
-                    {!isPinned && <button className="note-pinned material-icons" onClick={() => onPinNote(note.id)}>🔘</button>}
+                    {/* PIN NOTE BUTTON*/}
+                    {isPinned && <button className="note-pin pinned material-icons" onClick={() => onPinNote(note.id)}>push_pin</button>}
+                    {!isPinned && <button className="note-pin unpinned material-icons" onClick={() => onPinNote(note.id)}>push_pin</button>}
 
-                    {/* REMOVE NOTE */}
+                    {/* REMOVE NOTE BUTTON*/}
                     <button className="note-remove-btn material-icons" onClick={() => onRemoveNote(note.id)}>delete</button>
 
 
@@ -170,18 +166,3 @@ export class NoteCard extends React.Component {
 }
 
 
-// {/* ADD NEW IMAGE */}
-// {type === 'noteImg' && <input type="text" name="url" className="keeper-new-img"
-// onChange={this.handleChange} placeholder="add image link" />}
-
-// {/* ADD NEW VIDEO */}
-// {type === 'noteVid' && <input type="text" name="url" className="keeper-new-img"
-// onChange={this.handleChange} placeholder="add video link" />}
-
-// {/* ADD NEW AUDIO */}
-// {type === 'noteAud' && <input placeholder="add audio link" />}
-
-// {/* ADD NEW TODOS */}
-// {type === 'noteTodos' && <NoteTodos onAddNewList={this.onAddNewList} />}
-
-// {type !== 'noteTodos' && <button classame="keeper-submit-note" type="submit" onClick={this.onAddNote}>Add Note</button>}

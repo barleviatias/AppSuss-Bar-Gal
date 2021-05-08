@@ -25,7 +25,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
             title: '',
             txt: "Fullstack Me Baby!",
             style: {
-                backgroundColor: "#00d"
+                backgroundColor: "red"
             }
         }
     }, {
