@@ -5,6 +5,8 @@
 @import url('./about.css');
 @import url('./email-style/email.css');
 @import url('../../Apps/Keeper/assets/css/keep-main.css');
+@import url('../../Apps/Keeper/assets/css/keep-notes.css');
+@import url('../../Apps/Keeper/assets/css/keep-inputs.css');
 
 
 * {

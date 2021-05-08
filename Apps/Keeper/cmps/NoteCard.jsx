@@ -147,8 +147,8 @@ export class NoteCard extends React.Component {
                 <nav className="note-actions-btns">
 
                     {/* INSPECT NOTE */}
-                    {isNoteInspect && <button onClick={this.onNoteInspect}>-</button>}
-                    {!isNoteInspect && <button onClick={this.onNoteInspect}>+</button>}
+                    {isNoteInspect && <button className="note-inspect-btn" onClick={this.onNoteInspect}>zoom-in-outline</button>}
+                    {!isNoteInspect && <button className="note-inspect-btn" onClick={this.onNoteInspect}>focus</button>}
 
                     <input type="color" name="backgroundColor" className="note-color-btn" onChange={this.handleChangeStyle} />
 
@@ -156,11 +156,11 @@ export class NoteCard extends React.Component {
                     <button>send</button>
 
                     {/* PIN NOTE */}
-                    {isPinned && <button className="note-pinned" onClick={() => onPinNote(note.id)}>📌</button>}
-                    {!isPinned && <button className="note-pinned" onClick={() => onPinNote(note.id)}>🔘</button>}
+                    {isPinned && <button className="note-pinned material-icons" onClick={() => onPinNote(note.id)}>📌</button>}
+                    {!isPinned && <button className="note-pinned material-icons" onClick={() => onPinNote(note.id)}>🔘</button>}
 
                     {/* REMOVE NOTE */}
-                    <button className="note-remove-btn" onClick={() => onRemoveNote(note.id)}>remove</button>
+                    <button className="note-remove-btn material-icons" onClick={() => onRemoveNote(note.id)}>delete</button>
 
 
                 </nav>

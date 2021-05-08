@@ -1,0 +1,45 @@
+
+.notes-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.notes-pinned{
+    display: flex;
+    flex-wrap: wrap;
+    margin-block-end: 1rem;
+}
+
+.notes-not-pinned{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.note-card {
+    display: flex;
+    flex-flow: column;
+    background-color: azure;
+    border: gray 2px solid;
+    height: fit-content;
+    padding: 2rem;
+    max-width: 25vw;
+    margin-block-end: 1rem;
+    margin-inline: 1rem
+}
+
+.note-card img {
+    max-height: 150px;
+    margin: 0 auto;
+    
+}
+
+.note-card-clicked{
+    border: gray 2px solid;
+    height: 70vh;
+    width: 70vw;
+    margin: 0 auto;
+
+}

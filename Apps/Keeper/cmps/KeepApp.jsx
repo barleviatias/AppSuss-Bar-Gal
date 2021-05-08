@@ -41,19 +41,19 @@ export class KeepApp extends React.Component {
             })
     }
 
-    setNewNoteState =(type, val) => {
+    setNewNoteState = (type, val) => {
         this.setState(prevState => ({
             note: {
                 ...prevState.note,
                 [type]: val
             }
         }))
-        
+
     }
-    
-        // setAppState = (type, bollean) => {
-        //     this.setState({[type]: bollean})
-        // }
+
+    // setAppState = (type, bollean) => {
+    //     this.setState({[type]: bollean})
+    // }
 
 
     setInputType(type) {
@@ -138,39 +138,42 @@ export class KeepApp extends React.Component {
             {/* ----- NEW NOTES INPUT ----- */}
             <form className="keeper-new-note" style={noteStyle}>
 
-                {/* ADD NEW TITLE */}
-                {!type && <input type="text" name="title" className="keeper-new-title"
-                    onClick={() => this.setInputType('noteTxt')}
-                    placeholder="Write a new note" />}
+                <div className="keeper-input-container">
 
-                {type && <input type="text" name="title" className="keeper-new-title"
-                    onClick={() => this.setInputType(type)}
-                    onChange={this.handleChange}
-                    placeholder="title" />}
+                    {/* ADD NEW TITLE */}
+                    {!type && <input type="text" name="title" className="keeper-new-title"
+                        onClick={() => this.setInputType('noteTxt')}
+                        placeholder="Write a new note" />}
 
-                {visible && <React.Fragment>
+                    {type && <input type="text" name="title" className="keeper-new-title"
+                        onClick={() => this.setInputType(type)}
+                        onChange={this.handleChange}
+                        placeholder="title" />}
+
+                    {visible && <React.Fragment>
 
 
 
-                    {/* ADD NEW TEXT */}
-                    {type === 'noteTxt' && <textarea className="keeper-new-txt"
-                        name="txt" id="" cols="30" rows="3"
-                        onChange={this.handleChange} placeholder="add a new note"></textarea>}
+                        {/* ADD NEW TEXT */}
+                        {type === 'noteTxt' && <textarea className="keeper-new-txt"
+                            name="txt" id=""
+                            onChange={this.handleChange} placeholder="add a new note"></textarea>}
 
-                    {/* ADD NEW IMAGE */}
-                    {type === 'noteImg' && <input type="text" name="url" className="keeper-new-img"
-                        onChange={this.handleChange} placeholder="add image link" />}
+                        {/* ADD NEW IMAGE */}
+                        {type === 'noteImg' && <input type="text" name="url" className="keeper-new-img"
+                            onChange={this.handleChange} placeholder="add image link" />}
 
-                    {/* ADD NEW VIDEO */}
-                    {type === 'noteVid' && <input type="text" name="url" className="keeper-new-img"
-                        onChange={this.handleChange} placeholder="add video link" />}
+                        {/* ADD NEW VIDEO */}
+                        {type === 'noteVid' && <input type="text" name="url" className="keeper-new-img"
+                            onChange={this.handleChange} placeholder="add video link" />}
 
-                    {/* ADD NEW TODOS */}
-                    {type === 'noteTodos' && <NoteTodos onAddNewList={this.onAddNewList} />}
-                    {type !== 'noteTodos' && <button classame="keeper-submit-note" type="submit" onClick={this.onAddNote}>Add Note</button>}
+                        {/* ADD NEW TODOS */}
+                        {type === 'noteTodos' && <NoteTodos onAddNewList={this.onAddNewList} />}
+                        {type !== 'noteTodos' && <button classame="keeper-submit-note" type="submit" onClick={this.onAddNote}>Add Note</button>}
 
-                </React.Fragment>}
+                    </React.Fragment>}
 
+                </div>
 
                 {/* KEEPER ADD INPUTS BUTTONS*/}
                 <div className="keeper-btn-inputs">
@@ -178,32 +181,21 @@ export class KeepApp extends React.Component {
                         onClick={() => {
                             this.setInputType('noteTxt')
                         }}
-                        title="add text">Text</button>
+                        title="add text">text</button>
 
                     <button type="button" className="keeper-img-btn"
-                        onClick={() => {
-                            this.setInputType('noteImg')
-                        }}
-                        title="add image">Image</button>
+                        onClick={() => { this.setInputType('noteImg') }}
+                        title="add image material-icons">photo</button>
 
                     <button type="button" title=" Add-List" className="keeper-list-btn"
-                        onClick={() => {
-                            this.setInputType('noteTodos');
-                        }}
-                        title="add todo list">List
+                        onClick={() => { this.setInputType('noteTodos'); }}
+                        title="add todo list">list
                     </button>
 
                     <button type="button" className="keeper-vid-btn"
-                        onClick={() => {
-                            this.setInputType('noteVid')
-                        }}
+                        onClick={() => { this.setInputType('noteVid') }}
                         title="add video">Video
                         </button>
-                    <button type="button" className="keeper-aud-btn"
-                        onClick={() => {
-                            this.setInputType('noteAud')
-                        }}
-                        title="add sound">Audio</button>
 
                     <input type="color" name="backgroundColor" className="keeper-new-img" onChange={this.handleChange} />
 
@@ -217,7 +209,7 @@ export class KeepApp extends React.Component {
             {/* DISPLAY NOTES */}
             <main className="keeper-notes-container">
                 <NoteList notes={notes}
-                setNewNoteState={this.setNewNoteState}
+                    setNewNoteState={this.setNewNoteState}
                     onRemoveNote={this.onRemoveNote}
                     onPinNote={this.onPinNote} />
             </main>
