@@ -3,7 +3,7 @@
 @import url('./home.css');
 @import url('./header.css');
 @import url('./about.css');
-@import url('../../Apps/Email/css/email.css');
+@import url('../../Apps/Email/css/email-app.css');
 @import url('../../Apps/Keeper/assets/css/keep-main.css');
 @import url('../../Apps/Keeper/assets/css/keep-notes.css');
 @import url('../../Apps/Keeper/assets/css/keep-inputs.css');
@@ -50,7 +50,7 @@ main{
 
 a{
     color: inherit;
-    font-weight: bold;
+    /* font-weight: bold; */
     text-decoration: unset;
 }
 
@@ -63,7 +63,10 @@ img {
     height: 100%;
     object-fit: contain;
 }
+button{
+    border-radius: 2rem;
 
+}
 button:hover{
     cursor: pointer;
 }

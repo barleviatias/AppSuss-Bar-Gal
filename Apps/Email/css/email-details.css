@@ -1,0 +1,31 @@
+.mail-details-card{
+    /* background-color: rgb(221, 221, 221); */
+    border-radius: 2rem;
+    height: 50vh;
+    justify-content: space-between;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.438) 0px 0px 3px 0px;
+}
+.email-close{
+    display: flex;
+    align-self: flex-end;
+}
+.email-close:hover{
+    color: #ffb806;
+}
+.details-btns{
+ justify-content: space-between;
+}
+.details-btn{
+    font-weight: normal;
+ background-color: #1e3595 ;
+ color: whitesmoke;
+ padding:  5px 15px;
+ 
+}
+.details-btn:hover{
+    font-weight: normal;
+ background-color: #ffb806 ;
+ color: #1e3595;
+
+}

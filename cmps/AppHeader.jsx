@@ -18,7 +18,9 @@ export class AppHeader extends React.Component {
 		return (
 			<nav className="app-header">
 				<div className="logo-container">
-					<img className="logo-img" src="./assets/img/chipapp.png" alt="" />
+					<NavLink exact to="/">
+						<img className="logo-img" src="./assets/img/chipapp.png" alt="" />
+					</NavLink>
 				</div>
 				<div className="header-links-container">
 					{visible && (

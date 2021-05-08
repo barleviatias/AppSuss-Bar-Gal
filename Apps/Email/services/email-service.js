@@ -9,6 +9,7 @@ export const emailService = {
 	getNextEmailId,
 	toggleStar,
 	toggleReadOn,
+	getPrevEmailId
 };
 const KEY = 'emailsDB';
 var gEmails = storageService.loadFromStorage(KEY) || [];
@@ -55,6 +56,13 @@ function getNextEmailId(emailId) {
 	nextEmailIdx = nextEmailIdx === gEmails.length ? 0 : nextEmailIdx;
 	console.log(nextEmailIdx);
 	return gEmails[nextEmailIdx].id;
+}
+function getPrevEmailId(emailId) {
+	const emailIdx = gEmails.findIndex((email) => email.id === emailId);
+	var prevEmailIdx = emailIdx - 1;
+	prevEmailIdx = prevEmailIdx < 0 ? 0 : prevEmailIdx;
+	console.log(prevEmailIdx);
+	return gEmails[prevEmailIdx].id;
 }
 function toggleRead(idx) {
 	return Promise.resolve(

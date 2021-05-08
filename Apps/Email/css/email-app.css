@@ -1,3 +1,6 @@
+@import url(../css/email-sidebar.css);
+@import url(../css/email-preview.css);
+@import url(../css/email-details.css);
 button{
     border:0;
     background-color: rgba(255, 255, 255, 0);
@@ -38,22 +41,7 @@ button{
 .read{
     background-color: #1e35951c;;
 }
-.material-icons.add{
-    font-size: 52px;
-    color:  #1e3595;
-    
-}
-.material-icons.add:hover{
-    font-size: 52px;
-    color: #305fc2;
-    animation: heartBeat;
-    animation-duration: 0.8s; 
-}
-.btn-compose{
-    align-items: center;
-    font-size: 32px;
-    font-weight: bold;
-}
+
 .compose-mail{
 	flex-direction: column;
     width: 500px;
@@ -65,6 +53,7 @@ button{
     border-left: 0;
 }
 .btns-compose{
+    
     justify-content: space-around;
 }
 .material-icons{
