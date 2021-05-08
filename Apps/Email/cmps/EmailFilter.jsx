@@ -22,7 +22,7 @@ export class EmailFilter extends React.Component {
     }
 
     render() {
-        const { keyword, maxPriceRange } = this.state.filterBy
+        const { keyword, isRead } = this.state.filterBy
         return (
             <form className="email-filter" onSubmit={this.onFilter}>
                 <label htmlFor="byName">search</label>
@@ -30,6 +30,7 @@ export class EmailFilter extends React.Component {
                 {/* <label htmlFor="byPriceRange">Price range</label>
                 <input type="range" id="byPriceRange" name="maxPriceRange" min={10} max={200} value={maxPriceRange} onChange={this.handleChange}/>
                 <span>{`10 - ${maxPriceRange}`}</span> */}
+                
                 <button>Apply Changes</button>
             </form>
         )

@@ -12,6 +12,7 @@ export const emailService = {
 };
 const KEY = 'emailsDB';
 var gEmails = storageService.loadFromStorage(KEY) || [];
+// const filterEmails
 _createMails();
 
 _saveEmailsToStorage();
@@ -19,15 +20,26 @@ function query(filterBy) {
 	if (!filterBy) {
 		_saveEmailsToStorage();
 		return Promise.resolve(gEmails);
-	}
+	} else {
+		var { keyword, isStarred, isRead } = filterBy;
 
-        var { keyword,title, date, isStared, isRead } = filterBy
-        const filterEmails=gEmails.filter(email=>{
-            return email.subject.includes(keyword)|| email.body.includes(keyword)
-        })
-        console.log(filterEmails);
-        return Promise.resolve(filterEmails)
-    
+		let filterEmails = gEmails.filter((email) => {
+			return email.subject.includes(keyword) || email.body.includes(keyword);
+		});
+		if (isRead === true) {
+			const filterReadEmails = gEmails.filter((email) => email.isRead);
+			return Promise.resolve(filterReadEmails);
+		} else if (isStarred === true) {
+			const filterStarEmails = gEmails.filter((email) => email.isStarred);
+			return Promise.resolve(filterStarEmails);
+		}
+        else if(isRead === false){
+            const filterStarEmails = gEmails.filter((email) => !email.isRead);
+			return Promise.resolve(filterStarEmails);
+        }
+		console.log(filterEmails);
+		return Promise.resolve(filterEmails);
+	}
 }
 
 function getEmailById(id) {

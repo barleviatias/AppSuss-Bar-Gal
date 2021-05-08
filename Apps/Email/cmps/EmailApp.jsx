@@ -10,7 +10,9 @@ export class EmailApp extends React.Component {
             subject: '',
             body: '',
             ctg: '',
-            keyword:''
+            keyword:'',
+            isStarred:'',
+            isRead:'',
           }
 	};
 	componentDidMount() {
@@ -43,6 +45,23 @@ export class EmailApp extends React.Component {
     onSetFilter = (filterBy) => {
 		this.setState({ filterBy }, this.loadEmail);
 	};
+    onFilterAll= ()=>{
+
+        this.setState({filterBy:null},this.loadEmail)
+    }
+    onFilterRead= ()=>{
+
+        this.setState({filterBy:{isRead:true}},this.loadEmail)
+    }
+    onFilterUnread= ()=>{
+
+        this.setState({filterBy:{isRead:false}},this.loadEmail)
+    }
+    onFilterStar= ()=>{
+
+        this.setState({filterBy:{isStarred:true}},this.loadEmail)
+    }
+    
 	render() {
 		const { emails } = this.state;
 		if (!emails) return <div>Loading...</div>;
@@ -79,6 +98,10 @@ export class EmailApp extends React.Component {
 								<span className="material-icons add">add_circle</span>Compose
 							</button>
 						</NavLink>
+                            <button onClick={this.onFilterAll}>All</button>
+                            <button onClick={this.onFilterRead}>Read</button>
+                            <button onClick={this.onFilterUnread}>Unread</button>
+                            <button onClick={this.onFilterStar}>Stared</button>
 					</div>
 				</div>
 			</section>

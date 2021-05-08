@@ -33,7 +33,7 @@ export function EmailPreview(props) {
 				<button onClick={() => {
 						props.toggleStar(email.id);
 					}}>
-					<span className="material-icons fa-star">{!isStarred ? 'star' : 'star_border'}</span>
+					<span className="material-icons fa-star">{!isStarred ? 'star_border' : 'star'}</span>
 				</button>
 				<button
 					onClick={() => {
