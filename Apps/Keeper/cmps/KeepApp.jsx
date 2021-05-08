@@ -165,12 +165,8 @@ export class KeepApp extends React.Component {
                     {type === 'noteVid' && <input type="text" name="url" className="keeper-new-img"
                         onChange={this.handleChange} placeholder="add video link" />}
 
-                    {/* ADD NEW AUDIO */}
-                    {type === 'noteAud' && <input placeholder="add audio link" />}
-
                     {/* ADD NEW TODOS */}
                     {type === 'noteTodos' && <NoteTodos onAddNewList={this.onAddNewList} />}
-
                     {type !== 'noteTodos' && <button classame="keeper-submit-note" type="submit" onClick={this.onAddNote}>Add Note</button>}
 
                 </React.Fragment>}

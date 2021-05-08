@@ -19,7 +19,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
     {
         id: 'asfd4',
         type: "noteTxt",
-        isAddList: false,
+        isList: false,
         isPinned: true,
         info: {
             title: '',
@@ -31,7 +31,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
     }, {
         id: 'ka2sk22',
         type: "noteTxt",
-        isAddList: false,
+        isList: false,
         isPinned: false,
         info: {
             title: 'buy milk',
@@ -43,7 +43,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         id: 'b4vc85',
         type: "noteImg",
         isPinned: false,
-        isAddList: false,
+        isList: false,
         info: {
             title: "Me playing Mi",
             url: "https://www.itsme.co.il/wp-content/uploads/2019/02/itsme_smartphone-1.png",
@@ -54,8 +54,8 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
     }, {
         id: 'df5sa',
         isPinned: false,
-        isAddList: true,
-        type: "noteList",
+        isList: true,
+        type: "noteTodos",
         info: {
             title: "How was it:",
             todos: ["Do Todo List", "Do this"],
@@ -66,12 +66,12 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
     }, {
         id: 'e34ksa',
         isPinned: true,
-        isAddList: false,
-        type: "noteList",
+        isList: false,
+        type: "noteImg",
         info: {
             title: "Send to mom",
             txt: 'wowo',
-            url: 'https://mymodernmet.com/wp/wp-content/uploads/2020/07/dan-zafra-adirondacks-4.jpg',
+            url: "https://mymodernmet.com/wp/wp-content/uploads/2020/07/dan-zafra-adirondacks-4.jpg",
             style: {
                 backgroundColor: "white"
             }
@@ -99,7 +99,7 @@ function addNote(note) {
                 backgroundColor: note.backgroundColor
             }
         }
-}
+    }
     gNotes.unshift(newNote);
     _saveNotesToStorage();
     return Promise.resolve(newNote)
@@ -136,8 +136,13 @@ function removeTodo(todos, idx) {
     return newTodos
 }
 
-function editNote() {
-console.log('edit!');
+function editNote(note) {
+    console.log('note', note);
+    const noteIdx = _getNoteIndx(note.id)
+    gNotes.splice(noteIdx, 1, note)
+    _saveNotesToStorage()
+    console.log('edit!');
+    return Promise.resolve()
 }
 
 

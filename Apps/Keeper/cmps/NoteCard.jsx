@@ -1,42 +1,49 @@
 
-import { EditCard } from './NoteEdit.jsx'
 import { noteService } from '../services/keep.service.js'
 
 
 export class NoteCard extends React.Component {
     state = {
-        isNoteClicked: false,
+        isNoteInspect: false,
         isNoteEdit: false,
         noteClass: 'note-card',
         note: {
-            backgroundColor: this.props.note.info.style.backgroundColor,
-            title: this.props.note.info.title,
-            txt: this.props.note.info.txt,
-            url: this.props.note.info.url,
-            todos: this.props.note.info.todos
+            id: this.props.note.id,
+            type: this.props.note.type,
+            isPinned: this.props.note.isPinned,
+            isList: this.props.note.info.isList,
+            info: {
+                title: this.props.note.info.title,
+                txt: this.props.note.info.txt,
+                url: this.props.note.info.url,
+                todos: this.props.note.info.todos,
+                style: {
+                    backgroundColor: this.props.note.info.style.backgroundColor
+                }
+            }
         }
     }
 
     // TODO: MAKE ONLY ONE NOTE LARGE
     onNoteInspect = () => {
-        const isNoteClicked = this.state.isNoteClicked;
-        if (isNoteClicked) {
+        const isNoteInspect = this.state.isNoteInspect;
+        if (isNoteInspect) {
             this.setState(prevState => ({
                 ...prevState,
-                isNoteClicked: false,
+                isNoteInspect: false,
                 noteClass: 'note-card'
             }))
         }
-        if (!isNoteClicked) {
+        else {
             this.setState(prevState => ({
                 ...prevState,
-                isNoteClicked: true,
+                isNoteInspect: true,
                 noteClass: 'note-card-clicked'
             }))
-            
+
         }
     }
-    
+
 
     // TODO: change features in service
     onEditCard = () => {
@@ -46,8 +53,9 @@ export class NoteCard extends React.Component {
         }))
     }
 
-    submitChange = () =>{
-        const {title, txt, url, todos, backgroundColor} = this.state
+    submitChange = () => {
+        const { note } = this.state;
+        noteService.editNote(note)
         this.setState(prevState => ({
             ...prevState,
             isNoteEdit: false,
@@ -55,13 +63,36 @@ export class NoteCard extends React.Component {
         console.log('submit!');
     }
 
-    handleChange = ({ target }) => {
+    handleChangeInfo = ({ target }) => {
         const field = target.name;
         const value = (target.type === 'number') ? +target.value : target.value;
         this.setState(prevState => ({
+            ...prevState,
             note: {
                 ...prevState.note,
-                [field]: value,
+                info: {
+                    ...prevState.note.info,
+                    [field]: value,
+                }
+            }
+
+        }))
+    }
+    handleChangeStyle = ({ target }) => {
+        const field = target.name;
+        const value = (target.type === 'number') ? +target.value : target.value;
+        this.setState(prevState => ({
+            ...prevState,
+            note: {
+                ...prevState.note,
+                info: {
+                    ...prevState.note.info,
+                    style: {
+
+                        ...prevState.note.info.style,
+                        [field]: value,
+                    }
+                }
             }
 
         }))
@@ -70,8 +101,10 @@ export class NoteCard extends React.Component {
 
     render() {
         const { note, onRemoveNote, onPinNote } = this.props
-        const { isNoteEdit, noteClass } = this.state
-        const { title, txt, url, todos, backgroundColor, } = this.state.note
+        const { isNoteEdit, noteClass, isNoteInspect } = this.state
+        const { isPinned, type } = this.state.note
+        const { title, txt, url, todos } = this.state.note.info
+        const { backgroundColor } = this.state.note.info.style
         const noteStyle = {
             backgroundColor: backgroundColor
         }
@@ -79,47 +112,62 @@ export class NoteCard extends React.Component {
         return (
             <div style={noteStyle} className={noteClass} onBlur={this.submitChange}>
 
-                {!isNoteEdit && <h1 onDoubleClick={this.onEditCard}>{title}</h1>}
-                {isNoteEdit && <input type="text" name="title" className="note-title"
-                   onChange={this.handleChange}
-                    value={title} placeholder="title"/>}
+                {/* NOTE TITLE */}
+                {!isNoteEdit && <h1 onClick={this.onEditCard}>{title}</h1>}
+                {isNoteEdit && <input type="text" name="title" className="note-title-edit"
+                    onChange={this.handleChangeInfo} value={title} placeholder="title" />}
 
-                {note.type === 'noteTxt' && <React.Fragment>
-                    {!isNoteEdit && <p onDoubleClick={this.onEditCard}>{txt}</p>}
-                    {isNoteEdit && <textarea className="keeper-edit-txt" name="txt"
-                        onChange={this.handleChange}
+                {/* NOTE TEXT */}
+                {type === 'noteTxt' && <React.Fragment>
+                    {!isNoteEdit && <p onClick={this.onEditCard}>{txt}</p>}
+                    {isNoteEdit && <textarea className="note-txt-edit" name="txt"
+                        onChange={this.handleChangeInfo}
                         placeholder="add text" value={txt}></textarea>}
                 </React.Fragment>}
-                {note.type === 'noteImg' && <React.Fragment>
-                    <img src={url} alt={title} />
+                {/* NOTE IMAGE */}
+                {type === 'noteImg' && <React.Fragment>
+                    {<img src={url} alt={title} />}
+                    {isNoteEdit && <input type="text" name="url" className="note-title-edit"
+                        onChange={this.handleChangeInfo} value={url} placeholder="enter a new image link" />}
 
-                </React.Fragment>}
+                        </React.Fragment>}
+                    {/* NOTE TODO */}
+                    <React.Fragment>
+                        {type === 'noteTodos' && <ul> {todos.map((todo, idx) => {
+                            return <li key={idx}>{todo}</li>
+                        })}
+                        </ul>
+                        }
+                    </React.Fragment>
+
                 {/* <React.Fragment>
-                    {note.type === 'notevid' && <video width="400" height="250"><source src={note.info.url} /></video>}
-                </React.Fragment>
-                <React.Fragment>
-                    {note.type === 'noteAud' && <video width="400" height="250"><source src={note.info.url} /></video>}
-                </React.Fragment> */}
+                                        {note.type === 'notevid' && <video width="400" height="250"><source src={note.info.url} /></video>}
+                                    </React.Fragment> */}
 
-                {/* NOTE TODO */}
-                <React.Fragment>
-                    {note.type === 'noteTodos' && <ul> {todos.map((todo, idx) => {
-                        return <li key={idx}>{todo}</li>
-                    })}
-                    </ul>
-                    }
-                </React.Fragment>
-                <EditCard note={note} key={note.id}
-                    onRemoveNote={onRemoveNote}
-                    onPinNote={onPinNote}
-                    handleChange={this.handleChange}
-                    onNoteInspect={this.onNoteInspect}
-                />
+                <nav className="note-actions-btns">
+
+                    {/* INSPECT NOTE */}
+                    {isNoteInspect && <button onClick={this.onNoteInspect}>-</button>}
+                    {!isNoteInspect && <button onClick={this.onNoteInspect}>+</button>}
+
+                    <input type="color" name="backgroundColor" className="note-color-btn" onChange={this.handleChangeStyle} />
+
+                    {/* TODO: use email to send note */}
+                    <button>send</button>
+
+                    {/* PIN NOTE */}
+                    {isPinned && <button className="note-pinned" onClick={() => onPinNote(note.id)}>📌</button>}
+                    {!isPinned && <button className="note-pinned" onClick={() => onPinNote(note.id)}>🔘</button>}
+
+                    {/* REMOVE NOTE */}
+                    <button className="note-remove-btn" onClick={() => onRemoveNote(note.id)}>remove</button>
+
+
+                </nav>
             </div>
         )
     }
 }
-
 
 
 // {/* ADD NEW IMAGE */}
