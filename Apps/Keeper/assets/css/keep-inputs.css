@@ -46,6 +46,7 @@
     width: 100%;
     border-block-end: 0.5px solid rgba(177, 177, 177, 0.65);
     margin-block: 5px;
+    text-transform: capitalize;
 }
 
 

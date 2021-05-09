@@ -108,7 +108,7 @@ export class NoteCard extends React.Component {
                 <div className={styleClass} onBlur={this.submitChange}>
 
                     {/* NOTE TITLE */}
-                    {!isNoteEdit && <h1 onClick={this.onEditCard}>{title}</h1>}
+                    {!isNoteEdit && <h1 className="note-card-title" onClick={this.onEditCard}>{title}</h1>}
                     {isNoteEdit && <input type="text" name="title" className="note-title-edit"
                         onChange={this.handleChangeInfo} value={title} placeholder="title" />}
 

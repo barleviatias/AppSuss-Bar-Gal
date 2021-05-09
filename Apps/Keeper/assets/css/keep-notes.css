@@ -58,6 +58,11 @@
     align-self: center;
 }
 
+.note-card-title{
+    text-transform: capitalize;
+
+}
+
 .note-card-clicked li {
     font-size: 1.25rem;
     width: 50%;
