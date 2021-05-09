@@ -24,7 +24,7 @@ export function App() {
 					<Route  component={Home} path='/' />
 				</Switch>
 			</main>
-			<footer>coffeerights &copy;</footer>
+	
 		</Router>
 	);
 }
