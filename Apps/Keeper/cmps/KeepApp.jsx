@@ -130,7 +130,6 @@ export class KeepApp extends React.Component {
     render() {
         const { notes, visible, note } = this.state
         const { type, backgroundColor } = this.state.note
-        console.log(`keeper-new-note ${backgroundColor}`);
         if (!notes) return <div>Loading...</div>
 
         return (<section className="keeper-container">
@@ -139,11 +138,11 @@ export class KeepApp extends React.Component {
                 {/* TODO: add filter note cmp */}
             </header>
 
-            {/* ////TODO: move input to component\\\\ */}
+           
             {/* ----- NEW NOTES INPUT ----- */}
-            <form className={`keeper-new-note ${backgroundColor}`}>
+            <form className="keeper-new-note" >
 
-                <div className="keeper-input-container">
+                <div className={`keeper-input-container ${backgroundColor}`}>
 
                     {/* ADD NEW TITLE */}
                     {!type && <input type="text" name="title" className="keeper-new-title"
@@ -168,13 +167,13 @@ export class KeepApp extends React.Component {
 
                         {/* ADD NEW VIDEO */}
                         {type === 'noteVid' && <input type="text" name="url" className="keeper-new-img"
-                            onChange={this.handleChange} placeholder="add video link" />}
+                            onChange={this.handleChange} placeholder="add a video link, make sure its embeded and not watch in the url" />}
 
                         {/* ADD NEW TODOS */}
                         {type === 'noteTodos' && <NoteTodos onAddNewList={this.onAddNewList} />}
 
                         {/* ADD NEW NOTE BUTTON */}
-                        {type !== 'noteTodos' && <button classame="keeper-btn-submit" type="submit" onClick={this.onAddNote}>Add Note</button>}
+                        {type !== 'noteTodos' && <button className="keeper-submit-btn" type="submit" onClick={this.onAddNote}>Add Note</button>}
                     </React.Fragment>}
 
                 </div>
@@ -207,7 +206,7 @@ export class KeepApp extends React.Component {
 
                     {/* PIN NEW NOTE */}
                     {!note.isPinned && <button type="button" className="new-note-pin unpinned material-icons" onClick={() => this.setNewNoteState('isPinned', true)}>push_pin</button>}
-                    {note.isPinned && <button type="button" className="new-note-pin unpinned material-icons" onClick={() => this.setNewNoteState('isPinned', false)}>push_pin</button>}
+                    {note.isPinned && <button type="button" className="new-note-pin pinned material-icons" onClick={() => this.setNewNoteState('isPinned', false)}>push_pin</button>}
 
                     {/* SET COLOR BUTTON */}
                     <NoteColor setBackgroundColor={this.setBackgroundColor} />

@@ -1,5 +1,4 @@
-
-.notes-container{
+.notes-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,18 +6,16 @@
     margin: 0 auto;
 }
 
-.notes-pinned, .notes-not-pinned{
-
+.notes-pinned, .notes-not-pinned {
     column-count: 3;
     column-fill: balance;
     column-width: 240px;
     margin-block: 2rem;
 }
 
-.notes-not-pinned{
+.notes-not-pinned {
     padding-block-end: 20px;
 }
-
 
 .note-card {
     page-break-inside: avoid;
@@ -37,27 +34,53 @@
 .note-card img {
     max-height: 150px;
     margin: 0 auto;
-    
 }
 
-.note-card-clicked{
-    border: gray 2px solid;
-    height: 70vh;
-    width: 70vw;
+.note-card-clicked {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: flex-start;
+    text-align: center;
+    position: fixed;
+    top: 7%;
+    left: 10%;
     margin: 0 auto;
-
+    height: 85vh;
+    width: 80vw;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 16px 40px grey;
+}
+.note-card-clicked .note-card-vid {
+    width: 60%; 
+    height: 60%;
+    align-self: center;
 }
 
-.note-actions-btns{
+.note-card-clicked li {
+    font-size: 1.25rem;
+    width: 50%;
+    align-self: center;
+    text-align: start;
+    margin-bottom: 5px;
+}
+
+.note-card-clicked p{
+    font-size: 1.25rem;
+}
+
+.note-actions-btns {
     display: flex;
     align-self: center;
     margin-block-start: 1.5rem;
 }
 
-.note-actions-btns >* {
+.note-actions-btns>* {
     width: 2rem;
     height: 2rem;
 }
-/* .note-actions-btns >*:not(:last-child){
-margin-inline-end: 5px;
-} */
+
+.note-actions-btns>*:hover {
+    box-shadow: 1px 1px 5px 0 gray;
+}

@@ -42,25 +42,25 @@ export class NoteTodos extends React.Component {
     render() {
         const { todos } = this.state
         if (!todos) return <React.Fragment>
-            <ul>
+            <ul className="keeper-new-todos">
                 <li><input type="text" name="txt" placeholder="add a new list" onChange={this.handleChange} /></li>
-                <button type="button" onClick={this.addTodo} onClick={this.onAddTodo} ></button>
+                <button className="todo-add-btn material-icons" type="button" onClick={this.addTodo} onClick={this.onAddTodo} >add</button>
             </ul>
-            <button classame="keeper-submit-note" type="button" onClick={() => {
+            <button className="keeper-submit-btn" type="button" onClick={() => {
                 this.onAddTodo();
                 this.props.onAddNewList(todos);
             }}>Add Note</button>
         </React.Fragment>
         return <React.Fragment>
-            <ul>
+            <ul className="keeper-new-todos">
                 {todos.map((todo, idx) => {
-                    return <li key={idx}>{todo} <button type="button" onClick={() => this.onRemoveTodo(todos, idx)}>X</button></li>
+                    return <li  className="note-todo" key={idx}><p>{todo}</p> <button type="button" onClick={() => this.onRemoveTodo(todos, idx)}>X</button></li>
                 })}
                 <li><input type="text" name="txt" placeholder="add a new list" onChange={this.handleChange} input=""/></li>
-                <button type="button" onClick={this.onAddTodo}>New Todo</button>
+                <button type="button" className="todo-add-btn material-icons" onClick={this.onAddTodo}>add</button>
 
             </ul>
-            <button classame="keeper-submit-note" type="button" onClick={() => {
+            <button className="keeper-submit-btn" type="button" onClick={() => {
                 this.onAddTodo();
                 this.props.onAddNewList(todos);
             }}>Add Note</button>

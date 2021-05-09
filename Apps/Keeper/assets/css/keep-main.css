@@ -9,6 +9,12 @@
     margin: 0 auto;
 }
 
+.keeper-container li, p{
+    font-size: 1.1rem;
+}
+
+
+
 .keeper-container input, textarea {
     background-color: inherit;
     border: none;
@@ -31,7 +37,7 @@
     height: 15px;
     width: 15px;
     border-radius: 50%;
-    border: 1px black solid;
+    border: 1px #ab9a9a solid;
     margin: 0 auto;
 }
 

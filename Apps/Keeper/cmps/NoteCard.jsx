@@ -104,63 +104,68 @@ export class NoteCard extends React.Component {
         const styleClass = `${noteClass} ${backgroundColor}`
 
         return (
-            <div className={styleClass} onBlur={this.submitChange}>
+            
+                <div className={styleClass} onBlur={this.submitChange}>
 
-                {/* NOTE TITLE */}
-                {!isNoteEdit && <h1 onClick={this.onEditCard}>{title}</h1>}
-                {isNoteEdit && <input type="text" name="title" className="note-title-edit"
-                    onChange={this.handleChangeInfo} value={title} placeholder="title" />}
+                    {/* NOTE TITLE */}
+                    {!isNoteEdit && <h1 onClick={this.onEditCard}>{title}</h1>}
+                    {isNoteEdit && <input type="text" name="title" className="note-title-edit"
+                        onChange={this.handleChangeInfo} value={title} placeholder="title" />}
 
-                {/* NOTE TEXT */}
-                {type === 'noteTxt' && <React.Fragment>
-                    {!isNoteEdit && <p onClick={this.onEditCard}>{txt}</p>}
-                    {isNoteEdit && <textarea className="note-txt-edit" name="txt"
-                        onChange={this.handleChangeInfo}
-                        placeholder="add text" value={txt}></textarea>}
-                </React.Fragment>}
+                    {/* NOTE TEXT */}
+                    {type === 'noteTxt' && <React.Fragment>
+                        {!isNoteEdit && <p onClick={this.onEditCard}>{txt}</p>}
+                        {isNoteEdit && <textarea className="note-txt-edit" name="txt"
+                            onChange={this.handleChangeInfo}
+                            placeholder="add text" value={txt}></textarea>}
+                    </React.Fragment>}
 
-                {/* NOTE IMAGE */}
-                {type === 'noteImg' && <React.Fragment>
-                    {<img src={url} alt={title} />}
-                    {isNoteEdit && <input type="text" name="url" className="note-title-edit"
-                        onChange={this.handleChangeInfo} value={url} placeholder="enter a new image link" />}
-                </React.Fragment>}
+                    {/* NOTE IMAGE */}
+                    {type === 'noteImg' && <React.Fragment>
+                        {<img src={url} alt={title} />}
+                        {isNoteEdit && <input type="text" name="url" className="note-img-edit"
+                            onChange={this.handleChangeInfo} value={url} placeholder="enter a new image link" />}
+                    </React.Fragment>}
 
-                {/* NOTE TODO */}
-                <React.Fragment>
-                    {type === 'noteTodos' && <ul> {todos.map((todo, idx) => {
-                        return <li key={idx}>{todo}</li>
-                    })}
-                    </ul>
-                    }
-                </React.Fragment>
+                    {/* NOTE TODO */}
+                    {type === 'noteTodos' && <React.Fragment>
+                        <ul> {todos.map((todo, idx) => {
+                            return <li key={idx}>{todo}</li>
+                        })}
+                        </ul>
+                    </React.Fragment>}
 
-                {/* <React.Fragment>
-                                        {note.type === 'notevid' && <video width="400" height="250"><source src={note.info.url} /></video>}
-                                    </React.Fragment> */}
-                {/* NOTE ACTION BUTTONS */}
-                <nav className="note-actions-btns">
+                    {/* NOTE VIDEO */}
+                    {note.type === 'noteVid' && <React.Fragment>
+                        <iframe  frameBorder="0" className="note-card-vid"
+                            src={url} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
+                        </iframe>
+                        {isNoteEdit && <input type="text" name="url" className="note-vid-edit"
+                            onChange={this.handleChangeInfo} value={url} placeholder="enter a new video link, make sure its embeded and not watch in the url" />}
+                    </React.Fragment>}
 
-                    {/* INSPECT NOTE BUTTON*/}
-                    {isNoteInspect && <button title="minimize" className="note-inspect-btn material-icons" onClick={this.onNoteInspect}>zoom_out</button>}
-                    {!isNoteInspect && <button title="expand" className="note-inspect-btn material-icons" onClick={this.onNoteInspect}>zoom_in</button>}
+                    {/* NOTE ACTION BUTTONS */}
+                    <nav className="note-actions-btns">
 
-                    {/* NOTE COLOR BUTTON */}
-                    <NoteColor setBackgroundColor={this.setBackgroundColor} />
+                        {/* INSPECT NOTE BUTTON*/}
+                        {isNoteInspect && <button title="minimize" className="note-inspect-btn material-icons" onClick={this.onNoteInspect}>zoom_out</button>}
+                        {!isNoteInspect && <button title="expand" className="note-inspect-btn material-icons" onClick={this.onNoteInspect}>zoom_in</button>}
 
-                    {/* TODO: use email to send note */}
-                    <button className="material-icons">send</button>
+                        {/* NOTE COLOR BUTTON */}
+                        <NoteColor setBackgroundColor={this.setBackgroundColor} />
 
-                    {/* PIN NOTE BUTTON*/}
-                    {isPinned && <button className="note-pin pinned material-icons" onClick={() => onPinNote(note.id)}>push_pin</button>}
-                    {!isPinned && <button className="note-pin unpinned material-icons" onClick={() => onPinNote(note.id)}>push_pin</button>}
+                        {/* TODO: use email to send note */}
+                        {/* <button className="material-icons">send</button> */}
 
-                    {/* REMOVE NOTE BUTTON*/}
-                    <button className="note-remove-btn material-icons" onClick={() => onRemoveNote(note.id)}>delete</button>
+                        {/* PIN NOTE BUTTON*/}
+                        {isPinned && <button className="note-pin pinned material-icons" onClick={() => onPinNote(note.id)}>push_pin</button>}
+                        {!isPinned && <button className="note-pin unpinned material-icons" onClick={() => onPinNote(note.id)}>push_pin</button>}
+                        {/* REMOVE NOTE BUTTON*/}
+                        <button className="note-remove-btn material-icons" onClick={() => onRemoveNote(note.id)}>delete</button>
 
 
-                </nav>
-            </div>
+                    </nav>
+                </div>
         )
     }
 }
