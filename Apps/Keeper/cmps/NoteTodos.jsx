@@ -20,7 +20,7 @@ export class NoteTodos extends React.Component {
         }))
     }
 
-    
+
     onAddTodo = () => {
         event.preventDefault();
         const { txt, todos } = this.state
@@ -29,6 +29,14 @@ export class NoteTodos extends React.Component {
             todos: newTodos,
             txt: null
         })
+    }
+
+    toggleTodoIsDone = (id, idx) => {
+        const { todos } = this.state
+        const updatedTodo = { ...todos[idx], isDone: !todos[idx].isDone }
+        const updatedTodos = [...todos]
+        updatedTodos.splice(idx, 1, updatedTodo)
+        this.setState({ todos: updatedTodos })
     }
 
 
@@ -41,6 +49,7 @@ export class NoteTodos extends React.Component {
 
     render() {
         const { todos } = this.state
+        console.log(todos);
         if (!todos) return <React.Fragment>
             <ul className="keeper-new-todos">
                 <li><input type="text" name="txt" placeholder="add a new list" onChange={this.handleChange} /></li>
@@ -53,10 +62,17 @@ export class NoteTodos extends React.Component {
         </React.Fragment>
         return <React.Fragment>
             <ul className="keeper-new-todos">
+
                 {todos.map((todo, idx) => {
-                    return <li  className="note-todo" key={idx}><p>{todo}</p> <button type="button" onClick={() => this.onRemoveTodo(todos, idx)}>X</button></li>
+                    return <li className="note-todo"
+                        key={todo.id}>
+                        <p style={todo.isDone ? { textDecoration: 'line-through' } : {}}
+                            onClick={() => this.toggleTodoIsDone(todo.id, idx)}>{todo.txt}</p>
+                        <button type="button" onClick={() => this.onRemoveTodo(todos, idx)}>X</button>
+                    </li>
                 })}
-                <li><input type="text" name="txt" placeholder="add a new list" onChange={this.handleChange} input=""/></li>
+
+                <li><input type="text" name="txt" placeholder="add a new list" onChange={this.handleChange} input="" /></li>
                 <button type="button" className="todo-add-btn material-icons" onClick={this.onAddTodo}>add</button>
 
             </ul>

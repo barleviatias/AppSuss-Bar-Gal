@@ -58,7 +58,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         type: "noteTodos",
         info: {
             title: 'shoppin list',
-            todos: ['Cheese', 'Milk', 'Cookies', 'Banana', ''],
+            todos: [{ id: 't101', txt: 'Cheese', isDone: false }, { id: 't102', txt: 'Milk', isDone: false }, { id: 't103', txt: 'Cookies', isDone: true }, { id: 't104', txt: 'Banana', isDone: false }, ''],
             style: {
                 backgroundColor: "green"
             }
@@ -119,7 +119,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         info: {
             title: "philosophical thinking...",
             txt: ' Common sense requires scientific formulation. Both AI and philosophy require it, and philosophy might even be regarded as an attempt to make common sense into a science.            ',
-                        style: {
+            style: {
                 backgroundColor: "blue"
             }
         }
@@ -131,7 +131,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         info: {
             title: '',
             url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3aZ9cvMb5trOAqySjE0pdb0f5QSN0I1wUJw&usqp=CAU',
-                        style: {
+            style: {
                 backgroundColor: "blue"
             }
         }
@@ -143,7 +143,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         info: {
             title: '',
             url: 'https://www.youtube.com/embed/eX2qFMC8cFo',
-                        style: {
+            style: {
                 backgroundColor: "brown"
             }
         }
@@ -154,7 +154,14 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         type: 'noteTodos',
         info: {
             title: 'wedding must',
-            todos: ['find a dj', 'make inventation list', 'find a place','set a date', 'find a suit', 'IMPORTANT: keep her calm'],
+            todos: [
+                { id: 't105', txt: 'find a dj', isDone: false },
+                { id: 't106', txt: 'make inventation list', isDone: false },
+                { id: 't107', txt: 'find a place', isDone: true },
+                { id: 't108', txt: 'set a date', isDone: true },
+                { id: 't109', txt: 'find a suit', isDone: false },
+                { id: 't110', txt: 'IMPORTANT: keep her calm', isDone: false }
+            ],
             style: {
                 backgroundColor: "red"
             }
@@ -189,7 +196,7 @@ const gNotes = (storageService.loadFromStorage(KEY)) ? storageService.loadFromSt
         isList: false,
         type: 'noteImg',
         info: {
-            title:'hello',
+            title: 'hello',
             url: 'https://lh6.googleusercontent.com/proxy/Pj0eM3hJTfnuDIy5GsFyyVLoAADfBaGQBm-UZfmnVTmLzRrkHPxAU_UpWWtHkfwhqBcSORFI8aSOEf3yFmyqlaCGSQ9aPmWMTTNYBWwVT45HfHtjPvbcldIH=s0-d',
             style: {
                 backgroundColor: 'default',
@@ -256,8 +263,13 @@ function pinNote(noteId) {
 
 function addTodo(txt, todos) {
     if (!txt) return todos;
+    const newTodo = {
+        id:  utilService.makeId(),
+        txt,
+        isDone: false
+    }
     const newTodos = todos;
-    newTodos.push(txt);
+    newTodos.push(newTodo);
     return newTodos
 }
 

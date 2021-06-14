@@ -15,7 +15,7 @@ export class KeepApp extends React.Component {
             title: '',
             txt: '',
             url: '',
-            todos: '',
+            todos: [],
             backgroundColor: 'default',
         }
     }
@@ -98,7 +98,7 @@ export class KeepApp extends React.Component {
                         title: '',
                         txt: '',
                         url: '',
-                        todos: '',
+                        todos: [],
                     }
                 }))
             })
